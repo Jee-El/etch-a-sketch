@@ -23,6 +23,10 @@ const gridLinesBtn = document.createElement(`button`);
 gridLinesBtn.setAttribute(`type`, `button`);
 gridLinesBtn.textContent = `grid lines`;
 
+const eraserBtn = document.createElement(`button`);
+eraserBtn.setAttribute(`type`, `button`);
+eraserBtn.textContent = `eraser`;
+
 const clearBtn = document.createElement(`button`);
 clearBtn.setAttribute(`type`, `reset`);
 clearBtn.textContent = `clear`;
@@ -34,6 +38,7 @@ mainContainer.insertBefore(sliderLabel, gridContainer);
 mainContainer.insertBefore(slider, gridContainer);
 mainContainer.appendChild(buttons);
 buttons.appendChild(gridLinesBtn);
+buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
 
 let grid = [];
@@ -68,24 +73,26 @@ slider.addEventListener(`input`, () => {
 	makeGrid(slider.value);
 });
 
-// Color grid squares on click/mouseEnter
-gridContainer.addEventListener(`click`, (e) => {
+// Color grid pixels on click/mouseEnter
+gridContainer.addEventListener(`click`, toggleColoring);
+
+function toggleColoring(e) {
 	gridContainer.classList.toggle(`start-coloring`);
 	if (!gridContainer.classList.contains(`start-coloring`)) {
 		return stopColoringGrid();
 	}
 	e.target.style.backgroundColor = `#86C232`;
-	grid.forEach((gridSquare) => {
-		gridSquare.addEventListener(`mouseenter`, startColoringGrid);
+	grid.forEach((gridPixel) => {
+		gridPixel.addEventListener(`mouseenter`, startColoringGrid);
 	});
-});
+}
 
 function startColoringGrid(e) {
 	e.target.style.backgroundColor = `#86C232`;
 }
 function stopColoringGrid() {
-	grid.forEach((gridSquare) => {
-		gridSquare.removeEventListener(`mouseenter`, startColoringGrid);
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`mouseenter`, startColoringGrid);
 	});
 }
 
@@ -94,11 +101,30 @@ gridLinesBtn.addEventListener(`click`, () => {
 	gridContainer.classList.toggle(`grid-border`);
 });
 
+// Erase the color of a specific grid pixel
+function resetGridPixelColor(e) {
+	e.target.style.backgroundColor = `#474B4F`;
+}
+eraserBtn.addEventListener(`click`, () => {
+	eraserBtn.classList.toggle(`start-erasing`);
+	if (eraserBtn.classList.contains(`start-erasing`)) {
+		gridContainer.removeEventListener(`click`, toggleColoring);
+		grid.forEach((gridPixel) => {
+			gridPixel.addEventListener(`mouseenter`, resetGridPixelColor);
+		});
+	} else {
+		grid.forEach((gridPixel) => {
+			gridPixel.removeEventListener(`mouseenter`, resetGridPixelColor);
+		});
+		gridContainer.addEventListener(`click`, toggleColoring);
+	}
+});
+
 // Clear grid
 clearBtn.addEventListener(`click`, () => {
-	grid.forEach((gridSquare) => {
-		gridSquare.style.backgroundColor = `#474B4F`;
+	grid.forEach((gridPixel) => {
+		gridPixel.style.backgroundColor = `#474B4F`;
 	});
 	stopColoringGrid();
 	gridContainer.classList.remove(`start-coloring`);
-})
+});
