@@ -47,20 +47,30 @@ function makeGrid(side = 16) {
 }
 makeGrid();
 
-// Change grid elements style on click & mouse enter
-gridContainer.addEventListener(`click`, (e) => {
-	e.target.style.backgroundColor = `#86C232`;
-	grid.forEach((gridSquare) => {
-		gridSquare.addEventListener(`mouseenter`, () => {
-			gridSquare.style.backgroundColor = `#86C232`;
-		});
-	});
-});
-
-// Change grid elements amount based on the slider value
+// Change grid size based on the slider value
 slider.addEventListener(`input`, () => {
 	sliderLabel.textContent = `${slider.value}`;
 	// Remove previously created grid elements
 	grid = [];
 	makeGrid(slider.value);
 });
+
+gridContainer.addEventListener(`click`, (e) => {
+	gridContainer.classList.toggle(`start-coloring`);
+	if (!gridContainer.classList.contains(`start-coloring`)) {
+		return stopColoringGrid();
+	}
+	e.target.style.backgroundColor = `#86C232`;
+	grid.forEach((gridSquare) => {
+		gridSquare.addEventListener(`mouseenter`, startColoringGrid);
+	})
+});
+
+function startColoringGrid(e) {
+	e.target.style.backgroundColor = `#86C232`;
+}
+function stopColoringGrid() {
+	grid.forEach((gridSquare) => {
+		gridSquare.removeEventListener(`mouseenter`, startColoringGrid);
+	})
+}
