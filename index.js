@@ -16,15 +16,25 @@ sliderLabel.textContent = slider.value;
 const gridContainer = document.createElement(`div`);
 gridContainer.classList.add(`grid-container`);
 
-const button = document.createElement(`button`);
-button.textContent = `grid lines`;
+const buttons = document.createElement(`div`);
+buttons.classList.add(`buttons`);
+
+const gridLinesBtn = document.createElement(`button`);
+gridLinesBtn.setAttribute(`type`, `button`);
+gridLinesBtn.textContent = `grid lines`;
+
+const clearBtn = document.createElement(`button`);
+clearBtn.setAttribute(`type`, `reset`);
+clearBtn.textContent = `clear`;
 
 // Insert elements into the DOM
 body.appendChild(mainContainer);
 mainContainer.appendChild(gridContainer);
 mainContainer.insertBefore(sliderLabel, gridContainer);
 mainContainer.insertBefore(slider, gridContainer);
-mainContainer.appendChild(button);
+mainContainer.appendChild(buttons);
+buttons.appendChild(gridLinesBtn);
+buttons.appendChild(clearBtn);
 
 let grid = [];
 function makeGrid(side = 16) {
@@ -56,6 +66,11 @@ slider.addEventListener(`input`, () => {
 	// Remove previously created grid elements
 	grid = [];
 	makeGrid(slider.value);
+	if (gridContainer.classList.contains(`grid-border`)) {
+		grid.forEach((gridSquare) => {
+			gridSquare.style.outline = `1.5px solid #6B6E70`;
+		});
+	}
 });
 
 gridContainer.addEventListener(`click`, (e) => {
@@ -78,8 +93,14 @@ function stopColoringGrid() {
 	});
 }
 
-button.addEventListener(`click`, () => {
-	grid.forEach((gridSquare) => {
-		gridSquare.classList.toggle(`grid-border`);
-	})
+gridLinesBtn.addEventListener(`click`, () => {
+	gridContainer.classList.toggle(`grid-border`);
 });
+
+clearBtn.addEventListener(`click`, () => {
+	grid.forEach((gridSquare) => {
+		gridSquare.style.backgroundColor = `#474B4F`;
+	});
+	stopColoringGrid();
+	gridContainer.classList.remove(`start-coloring`);
+})
