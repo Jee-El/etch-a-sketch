@@ -16,11 +16,15 @@ sliderLabel.textContent = slider.value;
 const gridContainer = document.createElement(`div`);
 gridContainer.classList.add(`grid-container`);
 
+const button = document.createElement(`button`);
+button.textContent = `grid lines`;
+
 // Insert elements into the DOM
 body.appendChild(mainContainer);
 mainContainer.appendChild(gridContainer);
 mainContainer.insertBefore(sliderLabel, gridContainer);
 mainContainer.insertBefore(slider, gridContainer);
+mainContainer.appendChild(button);
 
 let grid = [];
 function makeGrid(side = 16) {
@@ -38,7 +42,6 @@ function makeGrid(side = 16) {
 	for (let i = 0; i < grid.length; i++) {
 		grid[i].style.cssText = `
             background-color: #474B4F;
-            outline: 2px solid #6B6E70;
         `;
 		grid[i].style.width = 400 / slider.value + `px`;
 		grid[i].style.height = 400 / slider.value + `px`;
@@ -63,7 +66,7 @@ gridContainer.addEventListener(`click`, (e) => {
 	e.target.style.backgroundColor = `#86C232`;
 	grid.forEach((gridSquare) => {
 		gridSquare.addEventListener(`mouseenter`, startColoringGrid);
-	})
+	});
 });
 
 function startColoringGrid(e) {
@@ -72,5 +75,11 @@ function startColoringGrid(e) {
 function stopColoringGrid() {
 	grid.forEach((gridSquare) => {
 		gridSquare.removeEventListener(`mouseenter`, startColoringGrid);
-	})
+	});
 }
+
+button.addEventListener(`click`, () => {
+	grid.forEach((gridSquare) => {
+		gridSquare.classList.toggle(`grid-border`);
+	})
+});
