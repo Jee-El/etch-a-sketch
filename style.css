@@ -43,19 +43,19 @@ input[type='range']:focus {
 
 input[type='range']:focus::-webkit-slider-thumb,
 input[type='range']:focus::-moz-range-thumb {
-	border: 1px solid #6B6E70;
-	outline: 3px solid #6B6E70;
+	border: 1px solid #6b6e70;
+	outline: 3px solid #6b6e70;
 	outline-offset: 0.125rem;
 }
 
 input[type='range']::-webkit-slider-runnable-track {
-	background: #86C232;
+	background: #86c232;
 	border-radius: 10px;
 	height: 8px;
 }
 
 input[type='range']::-moz-range-track {
-	background: #86C232;
+	background: #86c232;
 	border-radius: 10px;
 	height: 8px;
 }
@@ -89,8 +89,8 @@ input[type='range']::-moz-range-thumb {
 }
 
 .grid-container.grid-border > div {
-	outline: 1.5px solid #6B6E70;
-} 
+	outline: 1.5px solid #6b6e70;
+}
 
 .buttons {
 	display: flex;
@@ -103,7 +103,7 @@ input[type='range']::-moz-range-thumb {
 button {
 	border: none;
 	color: #000;
-	background-color: #86C232;
+	background-color: #86c232;
 	width: 109px;
 	padding: 0.4rem 0.8rem;
 	text-transform: capitalize;
@@ -112,10 +112,11 @@ button {
 	font-size: 0.85rem;
 	font-weight: 500;
 	border-radius: 2px;
-	box-shadow: 0px 0px 6px #86C232;
+	box-shadow: 0px 0px 6px #86c232;
+	transition: box-shadow 80ms ease-in-out;
 	cursor: pointer;
 }
 
 button:hover {
-	box-shadow: 0px 2px 10px #86C232;
+	box-shadow: 0px 2px 10px #86c232;
 }

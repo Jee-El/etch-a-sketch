@@ -66,13 +66,9 @@ slider.addEventListener(`input`, () => {
 	// Remove previously created grid elements
 	grid = [];
 	makeGrid(slider.value);
-	if (gridContainer.classList.contains(`grid-border`)) {
-		grid.forEach((gridSquare) => {
-			gridSquare.style.outline = `1.5px solid #6B6E70`;
-		});
-	}
 });
 
+// Color grid squares on click/mouseEnter
 gridContainer.addEventListener(`click`, (e) => {
 	gridContainer.classList.toggle(`start-coloring`);
 	if (!gridContainer.classList.contains(`start-coloring`)) {
@@ -93,10 +89,12 @@ function stopColoringGrid() {
 	});
 }
 
+// Toggle grid lines
 gridLinesBtn.addEventListener(`click`, () => {
 	gridContainer.classList.toggle(`grid-border`);
 });
 
+// Clear grid
 clearBtn.addEventListener(`click`, () => {
 	grid.forEach((gridSquare) => {
 		gridSquare.style.backgroundColor = `#474B4F`;
