@@ -21,7 +21,7 @@ buttons.classList.add(`buttons`);
 
 const greenColorBtn = document.createElement(`button`);
 greenColorBtn.setAttribute(`type`, `button`);
-greenColorBtn.textContent = `Draw`;
+greenColorBtn.textContent = `Green`;
 
 const rainbowColorBtn = document.createElement(`button`);
 rainbowColorBtn.setAttribute(`type`, `button`);
@@ -93,7 +93,6 @@ slider.addEventListener(`input`, () => {
 	makeGrid(slider.value);
 });
 
-
 // Color the grid in green on first click
 // Stop it on second click
 function startColoringInGreen(e) {
@@ -115,10 +114,18 @@ function colorGridInGreen(e) {
 // Stop coloring in any color other than green
 function stopColoringInRainbow() {
 	gridContainer.removeEventListener(`click`, startColoringInRainbow);
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
+	});
+	if (gridContainer.classList.contains(`start-green-coloring`)) {
+		gridContainer.classList.toggle(`start-green-coloring`);
+	}
+	if (gridContainer.classList.toggle(`start-rainbow-coloring`)) {
+		gridContainer.classList.toggle(`start-rainbow-coloring`);
+	}
 	gridContainer.addEventListener(`click`, startColoringInGreen);
 }
 greenColorBtn.addEventListener(`click`, stopColoringInRainbow);
-
 
 // Color the grid in rainbow on first click
 // Stop it on second click
@@ -145,9 +152,32 @@ function colorGridInRainbow(e) {
 // Stop coloring in any color other than rainbow
 function stopColoringInGreen() {
 	gridContainer.removeEventListener(`click`, startColoringInGreen);
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
+	});
+	if (gridContainer.classList.contains(`start-green-coloring`)) {
+		gridContainer.classList.toggle(`start-green-coloring`);
+	}
+	if (gridContainer.classList.toggle(`start-rainbow-coloring`)) {
+		gridContainer.classList.toggle(`start-rainbow-coloring`);
+	}
 	gridContainer.addEventListener(`click`, startColoringInRainbow);
 }
 rainbowColorBtn.addEventListener(`click`, stopColoringInGreen);
+
+clearBtn.addEventListener(`click`, () => {
+	grid.forEach((gridPixel) => {
+		gridPixel.style.backgroundColor = `#474B4F`;
+		gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
+		gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
+	});
+	if (gridContainer.classList.contains(`start-green-coloring`)) {
+		gridContainer.classList.toggle(`start-green-coloring`);
+	}
+	if (gridContainer.classList.toggle(`start-rainbow-coloring`)) {
+		gridContainer.classList.toggle(`start-rainbow-coloring`);
+	}
+});
 // // Color grid pixels on click/mouseEnter
 // function toggleGreenColoring(e) {
 // 	gridContainer.classList.toggle(`start-coloring`);
