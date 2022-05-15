@@ -74,7 +74,7 @@ function makeGrid(side = 16) {
 				slider.value +
 			`px`;
 		grid[i].style.height =
-			+window
+			window
 				.getComputedStyle(gridContainer)
 				.getPropertyValue(`max-height`)
 				.slice(0, 3) /
@@ -112,6 +112,7 @@ function colorGridInGreen(e) {
 	e.target.style.backgroundColor = `#86C232`;
 }
 // Stop coloring in any color other than green
+// Stop erasing
 function stopColoringInRainbowAndErasing() {
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
@@ -204,14 +205,3 @@ clearBtn.addEventListener(`click`, () => {
 		gridContainer.classList.toggle(`start-rainbow-coloring`);
 	}
 });
-
-// // Erase the color of a specific grid pixel
-// function resetGridPixelColor(e) {
-// 	e.target.style.backgroundColor = `#474B4F`;
-// }
-// eraserBtn.addEventListener(`click`, () => {
-// 	gridContainer.removeEventListener(`click`, toggleGreenColoring);
-// 	grid.forEach((gridPixel) => {
-// 		gridPixel.addEventListener(`mouseenter`, resetGridPixelColor);
-// 	});
-// });
