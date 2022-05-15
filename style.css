@@ -89,7 +89,7 @@ input[type='range']::-moz-range-thumb {
 }
 
 .grid-container.grid-border > div {
-	outline: 1.5px solid #6B6E70;
+	outline: 1.5px solid #6b6e70;
 }
 
 .buttons {
@@ -118,7 +118,8 @@ button {
 	cursor: pointer;
 }
 
-button:hover, button:focus {
+button:hover,
+button:focus {
 	background-color: #86c232;
 	color: #000;
 }

@@ -25,7 +25,7 @@ greenColorBtn.textContent = `Draw`;
 
 const rainbowColorBtn = document.createElement(`button`);
 rainbowColorBtn.setAttribute(`type`, `button`);
-rainbowColorBtn.textContent = `rainbow`; 
+rainbowColorBtn.textContent = `rainbow`;
 
 const gridLinesBtn = document.createElement(`button`);
 gridLinesBtn.setAttribute(`type`, `button`);
@@ -66,8 +66,20 @@ function makeGrid(side = 16) {
 	// Fit grid elements into the grid container
 	for (let i = 0; i < grid.length; i++) {
 		grid[i].style.cssText = `background-color: #474B4F;`;
-		grid[i].style.width = window.getComputedStyle(gridContainer).getPropertyValue(`max-width`).slice(0, 3) / slider.value + `px`;
-		grid[i].style.height = +window.getComputedStyle(gridContainer).getPropertyValue(`max-height`).slice(0, 3) / slider.value + `px`;
+		grid[i].style.width =
+			window
+				.getComputedStyle(gridContainer)
+				.getPropertyValue(`max-width`)
+				.slice(0, 3) /
+				slider.value +
+			`px`;
+		grid[i].style.height =
+			+window
+				.getComputedStyle(gridContainer)
+				.getPropertyValue(`max-height`)
+				.slice(0, 3) /
+				slider.value +
+			`px`;
 		gridContainer.appendChild(grid[i]);
 	}
 }
@@ -99,7 +111,9 @@ function toggleRainbowColoring(e) {
 		return stopColoringGrid();
 	}
 	gridContainer.classList.remove(`start-coloring`);
-	e.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255)}, 194, ${Math.floor(Math.random() * 255)})`;
+	e.target.style.backgroundColor = `rgb(${Math.floor(
+		Math.random() * 255
+	)}, 194, ${Math.floor(Math.random() * 255)})`;
 	grid.forEach((gridPixel) => {
 		gridPixel.addEventListener(`mouseenter`, startRainbowColoringGrid);
 	});
@@ -108,7 +122,9 @@ function startGreenColoringGrid(e) {
 	e.target.style.backgroundColor = `#86C232`;
 }
 function startRainbowColoringGrid(e) {
-	e.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255)}, 194, ${Math.floor(Math.random() * 255)})`;
+	e.target.style.backgroundColor = `rgb(${Math.floor(
+		Math.random() * 255
+	)}, 194, ${Math.floor(Math.random() * 255)})`;
 }
 function stopColoringGrid() {
 	grid.forEach((gridPixel) => {
@@ -131,7 +147,7 @@ rainbowColorBtn.addEventListener(`click`, () => {
 		gridPixel.removeEventListener(`mouseenter`, resetGridPixelColor);
 	});
 	gridContainer.addEventListener(`click`, toggleRainbowColoring);
-})
+});
 
 // Toggle grid lines
 gridLinesBtn.addEventListener(`click`, () => {
