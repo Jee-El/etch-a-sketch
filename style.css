@@ -25,7 +25,7 @@ label {
 	font-size: 1rem;
 	font-weight: 500;
 	letter-spacing: 0.04rem;
-	margin-bottom: 0.2rem;
+	margin-bottom: 0.5rem;
 }
 
 input[type='range'] {
@@ -33,7 +33,7 @@ input[type='range'] {
 	appearance: none;
 	background: transparent;
 	cursor: pointer;
-	margin-bottom: 1.2rem;
+	margin-bottom: 1.5rem;
 	width: 7rem;
 }
 
@@ -84,8 +84,8 @@ input[type='range']::-moz-range-thumb {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-	max-height: 400px;
-	max-width: 400px;
+	max-height: 350px;
+	max-width: 350px;
 }
 
 .grid-container.grid-border > div {
@@ -95,7 +95,8 @@ input[type='range']::-moz-range-thumb {
 .buttons {
 	display: flex;
 	flex-flow: row wrap;
-	width: 400px;
+	width: 80%;
+	max-width: 400px;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -108,7 +109,7 @@ button {
 	width: 109px;
 	padding: 0.4rem 0.8rem;
 	text-transform: capitalize;
-	margin-top: 1.2rem;
+	margin-top: 1.5rem;
 	letter-spacing: 0.08rem;
 	font-size: 0.85rem;
 	font-weight: 500;
@@ -120,4 +121,11 @@ button {
 button:hover, button:focus {
 	background-color: #86c232;
 	color: #000;
+}
+
+@media (min-width: 769px) {
+	.grid-container {
+		max-height: 500px;
+		max-width: 500px;
+	}
 }

@@ -65,11 +65,9 @@ function makeGrid(side = 16) {
 
 	// Fit grid elements into the grid container
 	for (let i = 0; i < grid.length; i++) {
-		grid[i].style.cssText = `
-            background-color: #474B4F;
-        `;
-		grid[i].style.width = 400 / slider.value + `px`;
-		grid[i].style.height = 400 / slider.value + `px`;
+		grid[i].style.cssText = `background-color: #474B4F;`;
+		grid[i].style.width = window.getComputedStyle(gridContainer).getPropertyValue(`max-width`).slice(0, 3) / slider.value + `px`;
+		grid[i].style.height = +window.getComputedStyle(gridContainer).getPropertyValue(`max-height`).slice(0, 3) / slider.value + `px`;
 		gridContainer.appendChild(grid[i]);
 	}
 }
