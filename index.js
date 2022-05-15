@@ -19,6 +19,10 @@ gridContainer.classList.add(`grid-container`);
 const buttons = document.createElement(`div`);
 buttons.classList.add(`buttons`);
 
+const drawBtn = document.createElement(`button`);
+drawBtn.setAttribute(`type`, `button`);
+drawBtn.textContent = `Draw`;
+
 const gridLinesBtn = document.createElement(`button`);
 gridLinesBtn.setAttribute(`type`, `button`);
 gridLinesBtn.textContent = `grid lines`;
@@ -37,6 +41,7 @@ mainContainer.appendChild(gridContainer);
 mainContainer.insertBefore(sliderLabel, gridContainer);
 mainContainer.insertBefore(slider, gridContainer);
 mainContainer.appendChild(buttons);
+buttons.appendChild(drawBtn);
 buttons.appendChild(gridLinesBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
@@ -74,8 +79,6 @@ slider.addEventListener(`input`, () => {
 });
 
 // Color grid pixels on click/mouseEnter
-gridContainer.addEventListener(`click`, toggleColoring);
-
 function toggleColoring(e) {
 	gridContainer.classList.toggle(`start-coloring`);
 	if (!gridContainer.classList.contains(`start-coloring`)) {
@@ -96,6 +99,14 @@ function stopColoringGrid() {
 	});
 }
 
+// Start coloring
+drawBtn.addEventListener(`click`, () => {
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`mouseenter`, resetGridPixelColor);
+	});
+	gridContainer.addEventListener(`click`, toggleColoring);
+})
+
 // Toggle grid lines
 gridLinesBtn.addEventListener(`click`, () => {
 	gridContainer.classList.toggle(`grid-border`);
@@ -106,18 +117,10 @@ function resetGridPixelColor(e) {
 	e.target.style.backgroundColor = `#474B4F`;
 }
 eraserBtn.addEventListener(`click`, () => {
-	eraserBtn.classList.toggle(`start-erasing`);
-	if (eraserBtn.classList.contains(`start-erasing`)) {
-		gridContainer.removeEventListener(`click`, toggleColoring);
-		grid.forEach((gridPixel) => {
-			gridPixel.addEventListener(`mouseenter`, resetGridPixelColor);
-		});
-	} else {
-		grid.forEach((gridPixel) => {
-			gridPixel.removeEventListener(`mouseenter`, resetGridPixelColor);
-		});
-		gridContainer.addEventListener(`click`, toggleColoring);
-	}
+	gridContainer.removeEventListener(`click`, toggleColoring);
+	grid.forEach((gridPixel) => {
+		gridPixel.addEventListener(`mouseenter`, resetGridPixelColor);
+	});
 });
 
 // Clear grid
