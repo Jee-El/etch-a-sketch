@@ -112,7 +112,10 @@ function colorGridInGreen(e) {
 	e.target.style.backgroundColor = `#86C232`;
 }
 // Stop coloring in any color other than green
-function stopColoringInRainbow() {
+function stopColoringInRainbowAndErasing() {
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
+	});
 	gridContainer.removeEventListener(`click`, startColoringInRainbow);
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
@@ -125,7 +128,7 @@ function stopColoringInRainbow() {
 	}
 	gridContainer.addEventListener(`click`, startColoringInGreen);
 }
-greenColorBtn.addEventListener(`click`, stopColoringInRainbow);
+greenColorBtn.addEventListener(`click`, stopColoringInRainbowAndErasing);
 
 // Color the grid in rainbow on first click
 // Stop it on second click
@@ -150,7 +153,11 @@ function colorGridInRainbow(e) {
 	)}, 194, ${Math.floor(Math.random() * 255)})`;
 }
 // Stop coloring in any color other than rainbow
-function stopColoringInGreen() {
+// Stop erasing
+function stopColoringInGreenAndErasing() {
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
+	});
 	gridContainer.removeEventListener(`click`, startColoringInGreen);
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
@@ -163,8 +170,27 @@ function stopColoringInGreen() {
 	}
 	gridContainer.addEventListener(`click`, startColoringInRainbow);
 }
-rainbowColorBtn.addEventListener(`click`, stopColoringInGreen);
+rainbowColorBtn.addEventListener(`click`, stopColoringInGreenAndErasing);
 
+// Toggle grid lines
+gridLinesBtn.addEventListener(`click`, () => {
+	gridContainer.classList.toggle(`grid-border`);
+});
+
+// Erase the color of a specific grid pixel
+function eraseGridPixelColor(e) {
+	e.target.style.backgroundColor = `#474B4F`;
+}
+function stopColoringAll() {
+	gridContainer.removeEventListener(`click`, startColoringInGreen);
+	gridContainer.removeEventListener(`click`, startColoringInRainbow);
+	grid.forEach((gridPixel) => {
+		gridPixel.addEventListener(`mouseenter`, eraseGridPixelColor);
+	});
+}
+eraserBtn.addEventListener(`click`, stopColoringAll);
+
+// Clear grid
 clearBtn.addEventListener(`click`, () => {
 	grid.forEach((gridPixel) => {
 		gridPixel.style.backgroundColor = `#474B4F`;
@@ -178,64 +204,6 @@ clearBtn.addEventListener(`click`, () => {
 		gridContainer.classList.toggle(`start-rainbow-coloring`);
 	}
 });
-// // Color grid pixels on click/mouseEnter
-// function toggleGreenColoring(e) {
-// 	gridContainer.classList.toggle(`start-coloring`);
-// 	if (!gridContainer.classList.contains(`start-coloring`)) {
-// 		return stopColoringGrid();
-// 	}
-// 	e.target.style.backgroundColor = `#86C232`;
-// 	grid.forEach((gridPixel) => {
-// 		gridPixel.addEventListener(`mouseenter`, startGreenColoringGrid);
-// 	});
-// }
-// function toggleRainbowColoring(e) {
-// 	gridContainer.classList.toggle(`start-rainbow-coloring`);
-// 	if (!gridContainer.classList.contains(`start-rainbow-coloring`)) {
-// 		return stopColoringGrid();
-// 	}
-// 	e.target.style.backgroundColor = `rgb(${Math.floor(
-// 		Math.random() * 255
-// 	)}, 194, ${Math.floor(Math.random() * 255)})`;
-// 	grid.forEach((gridPixel) => {
-// 		gridPixel.addEventListener(`mouseenter`, startRainbowColoringGrid);
-// 	});
-// }
-// function startGreenColoringGrid(e) {
-// 	e.target.style.backgroundColor = `#86C232`;
-// }
-// function startRainbowColoringGrid(e) {
-// 	e.target.style.backgroundColor = `rgb(${Math.floor(
-// 		Math.random() * 255
-// 	)}, 194, ${Math.floor(Math.random() * 255)})`;
-// }
-// function stopColoringGrid() {
-// 	grid.forEach((gridPixel) => {
-// 		gridPixel.removeEventListener(`mouseenter`, startGreenColoringGrid);
-// 		gridPixel.removeEventListener(`mouseenter`, startRainbowColoringGrid);
-// 	});
-// }
-
-// // Start coloring in green
-// greenColorBtn.addEventListener(`click`, () => {
-// 	grid.forEach((gridPixel) => {
-// 		gridPixel.removeEventListener(`mouseenter`, resetGridPixelColor);
-// 	});
-// 	gridContainer.addEventListener(`click`, toggleGreenColoring);
-// });
-
-// // Start coloring in random colors
-// rainbowColorBtn.addEventListener(`click`, () => {
-// 	grid.forEach((gridPixel) => {
-// 		gridPixel.removeEventListener(`mouseenter`, resetGridPixelColor);
-// 	});
-// 	gridContainer.addEventListener(`click`, toggleRainbowColoring);
-// });
-
-// // Toggle grid lines
-// gridLinesBtn.addEventListener(`click`, () => {
-// 	gridContainer.classList.toggle(`grid-border`);
-// });
 
 // // Erase the color of a specific grid pixel
 // function resetGridPixelColor(e) {
@@ -246,14 +214,4 @@ clearBtn.addEventListener(`click`, () => {
 // 	grid.forEach((gridPixel) => {
 // 		gridPixel.addEventListener(`mouseenter`, resetGridPixelColor);
 // 	});
-// });
-
-// // Clear grid
-// clearBtn.addEventListener(`click`, () => {
-// 	grid.forEach((gridPixel) => {
-// 		gridPixel.style.backgroundColor = `#474B4F`;
-// 	});
-// 	stopColoringGrid();
-// 	gridContainer.removeEventListener(`click`, toggleGreenColoring);
-// 	gridContainer.removeEventListener(`click`, toggleRainbowColoring);
 // });
