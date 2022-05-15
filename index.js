@@ -19,9 +19,13 @@ gridContainer.classList.add(`grid-container`);
 const buttons = document.createElement(`div`);
 buttons.classList.add(`buttons`);
 
-const drawBtn = document.createElement(`button`);
-drawBtn.setAttribute(`type`, `button`);
-drawBtn.textContent = `Draw`;
+const greenColorBtn = document.createElement(`button`);
+greenColorBtn.setAttribute(`type`, `button`);
+greenColorBtn.textContent = `Draw`;
+
+const rainbowColorBtn = document.createElement(`button`);
+rainbowColorBtn.setAttribute(`type`, `button`);
+rainbowColorBtn.textContent = `rainbow`; 
 
 const gridLinesBtn = document.createElement(`button`);
 gridLinesBtn.setAttribute(`type`, `button`);
@@ -41,7 +45,8 @@ mainContainer.appendChild(gridContainer);
 mainContainer.insertBefore(sliderLabel, gridContainer);
 mainContainer.insertBefore(slider, gridContainer);
 mainContainer.appendChild(buttons);
-buttons.appendChild(drawBtn);
+buttons.appendChild(greenColorBtn);
+buttons.appendChild(rainbowColorBtn);
 buttons.appendChild(gridLinesBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
@@ -72,39 +77,62 @@ makeGrid();
 
 // Change grid size based on the slider value
 slider.addEventListener(`input`, () => {
-	sliderLabel.textContent = `${slider.value}`;
+	sliderLabel.textContent = slider.value;
 	// Remove previously created grid elements
 	grid = [];
 	makeGrid(slider.value);
 });
 
 // Color grid pixels on click/mouseEnter
-function toggleColoring(e) {
+function toggleGreenColoring(e) {
 	gridContainer.classList.toggle(`start-coloring`);
 	if (!gridContainer.classList.contains(`start-coloring`)) {
 		return stopColoringGrid();
 	}
+	gridContainer.classList.remove(`start-rainbow-coloring`);
 	e.target.style.backgroundColor = `#86C232`;
 	grid.forEach((gridPixel) => {
-		gridPixel.addEventListener(`mouseenter`, startColoringGrid);
+		gridPixel.addEventListener(`mouseenter`, startGreenColoringGrid);
 	});
 }
-
-function startColoringGrid(e) {
+function toggleRainbowColoring(e) {
+	gridContainer.classList.toggle(`start-rainbow-coloring`);
+	if (!gridContainer.classList.contains(`start-rainbow-coloring`)) {
+		return stopColoringGrid();
+	}
+	gridContainer.classList.remove(`start-coloring`);
+	e.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255)}, 194, ${Math.floor(Math.random() * 255)})`;
+	grid.forEach((gridPixel) => {
+		gridPixel.addEventListener(`mouseenter`, startRainbowColoringGrid);
+	});
+}
+function startGreenColoringGrid(e) {
 	e.target.style.backgroundColor = `#86C232`;
+}
+function startRainbowColoringGrid(e) {
+	e.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255)}, 194, ${Math.floor(Math.random() * 255)})`;
 }
 function stopColoringGrid() {
 	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`mouseenter`, startColoringGrid);
+		gridPixel.removeEventListener(`mouseenter`, startGreenColoringGrid);
+		gridPixel.removeEventListener(`mouseenter`, startRainbowColoringGrid);
 	});
 }
 
-// Start coloring
-drawBtn.addEventListener(`click`, () => {
+// Start coloring in green
+greenColorBtn.addEventListener(`click`, () => {
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`mouseenter`, resetGridPixelColor);
 	});
-	gridContainer.addEventListener(`click`, toggleColoring);
+	gridContainer.addEventListener(`click`, toggleGreenColoring);
+});
+
+// Start coloring in random colors
+rainbowColorBtn.addEventListener(`click`, () => {
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`mouseenter`, resetGridPixelColor);
+	});
+	gridContainer.addEventListener(`click`, toggleRainbowColoring);
 })
 
 // Toggle grid lines
@@ -117,7 +145,7 @@ function resetGridPixelColor(e) {
 	e.target.style.backgroundColor = `#474B4F`;
 }
 eraserBtn.addEventListener(`click`, () => {
-	gridContainer.removeEventListener(`click`, toggleColoring);
+	gridContainer.removeEventListener(`click`, toggleGreenColoring);
 	grid.forEach((gridPixel) => {
 		gridPixel.addEventListener(`mouseenter`, resetGridPixelColor);
 	});
@@ -129,5 +157,6 @@ clearBtn.addEventListener(`click`, () => {
 		gridPixel.style.backgroundColor = `#474B4F`;
 	});
 	stopColoringGrid();
-	gridContainer.classList.remove(`start-coloring`);
+	gridContainer.removeEventListener(`click`, toggleGreenColoring);
+	gridContainer.removeEventListener(`click`, toggleRainbowColoring);
 });
