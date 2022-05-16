@@ -3,8 +3,8 @@
 It's a sketching website or game where you can :
 - Draw what's similar to pixel art.
 - Test your Kufic Calligraphy ideas and skills before you open your favorite design software :D.
-## Example
-![Kufic Calligraphy](https://ibb.co/xfj80Mt)
+## Example: Mohamed
+![Kufic Calligraphy](./kuficExample.png)
 
 ## Additional Info
 Etch-A-Sketch game is the project right after the Rock-Paper-Scissors one
