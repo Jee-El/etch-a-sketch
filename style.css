@@ -101,7 +101,7 @@ input[type='range']::-moz-range-thumb {
 	align-items: center;
 }
 
-button {
+button, input[type="color"] {
 	border: none;
 	color: #86c232;
 	background-color: transparent;
@@ -116,6 +116,20 @@ button {
 	border-radius: 2px;
 	transition: all 100ms ease-in-out;
 	cursor: pointer;
+}
+
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	height: 36.78px;
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+	border-radius: 2px;
 }
 
 button:hover,

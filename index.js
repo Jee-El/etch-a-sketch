@@ -19,9 +19,13 @@ gridContainer.classList.add(`grid-container`);
 const buttons = document.createElement(`div`);
 buttons.classList.add(`buttons`);
 
-const greenColorBtn = document.createElement(`button`);
-greenColorBtn.setAttribute(`type`, `button`);
-greenColorBtn.textContent = `Green`;
+const colorPicker = document.createElement(`input`);
+colorPicker.setAttribute(`type`, `color`);
+colorPicker.setAttribute(`value`, `#86c232`);
+
+const draw = document.createElement(`button`);
+draw.setAttribute(`type`, `button`);
+draw.textContent = `Draw`;
 
 const rainbowColorBtn = document.createElement(`button`);
 rainbowColorBtn.setAttribute(`type`, `button`);
@@ -45,7 +49,8 @@ mainContainer.appendChild(gridContainer);
 mainContainer.insertBefore(sliderLabel, gridContainer);
 mainContainer.insertBefore(slider, gridContainer);
 mainContainer.appendChild(buttons);
-buttons.appendChild(greenColorBtn);
+buttons.appendChild(draw);
+buttons.appendChild(colorPicker);
 buttons.appendChild(rainbowColorBtn);
 buttons.appendChild(gridLinesBtn);
 buttons.appendChild(eraserBtn);
@@ -67,17 +72,15 @@ function makeGrid(side = 16) {
 	for (let i = 0; i < grid.length; i++) {
 		grid[i].style.cssText = `background-color: #474B4F;`;
 		grid[i].style.width =
-			window
-				.getComputedStyle(gridContainer)
-				.getPropertyValue(`max-width`)
-				.slice(0, 3) /
+			parseInt(
+				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+			) /
 				slider.value +
 			`px`;
 		grid[i].style.height =
-			window
-				.getComputedStyle(gridContainer)
-				.getPropertyValue(`max-height`)
-				.slice(0, 3) /
+			parseInt(
+				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+			) /
 				slider.value +
 			`px`;
 		gridContainer.appendChild(grid[i]);
@@ -103,13 +106,13 @@ function startColoringInGreen(e) {
 		});
 		return;
 	}
-	e.target.style.backgroundColor = `#86C232`;
+	e.target.style.backgroundColor = colorPicker.value;
 	grid.forEach((gridPixel) => {
 		gridPixel.addEventListener(`mouseenter`, colorGridInGreen);
 	});
 }
 function colorGridInGreen(e) {
-	e.target.style.backgroundColor = `#86C232`;
+	e.target.style.backgroundColor = colorPicker.value;
 }
 // Stop coloring in any color other than green
 // Stop erasing
@@ -129,7 +132,7 @@ function stopColoringInRainbowAndErasing() {
 	}
 	gridContainer.addEventListener(`click`, startColoringInGreen);
 }
-greenColorBtn.addEventListener(`click`, stopColoringInRainbowAndErasing);
+draw.addEventListener(`click`, stopColoringInRainbowAndErasing);
 
 // Color the grid in rainbow on first click
 // Stop it on second click
