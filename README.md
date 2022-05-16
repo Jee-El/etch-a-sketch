@@ -1,4 +1,6 @@
 # Etch-A-Sketch
+## Where to try it?
+https://jee-el.github.io/etch-a-sketch/
 ## What's the game about?
 It's a sketching website or game where you can :
 - Draw what's similar to pixel art.
