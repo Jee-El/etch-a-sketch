@@ -87,6 +87,7 @@ function makeGrid(side = 16) {
 	}
 }
 makeGrid();
+window.addEventListener(`resize`, makeGrid);
 
 // Change grid size based on the slider value
 slider.addEventListener(`input`, () => {
