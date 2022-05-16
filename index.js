@@ -121,6 +121,9 @@ function stopColoringInRainbowAndErasing() {
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
 	});
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`click`, eraseGridPixelColor);
+	});
 	gridContainer.removeEventListener(`click`, startColoringInRainbow);
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
@@ -163,6 +166,9 @@ function stopColoringInGreenAndErasing() {
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
 	});
+	grid.forEach((gridPixel) => {
+		gridPixel.removeEventListener(`click`, eraseGridPixelColor);
+	});
 	gridContainer.removeEventListener(`click`, startColoringInGreen);
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
@@ -185,12 +191,15 @@ gridLinesBtn.addEventListener(`click`, () => {
 // Erase the color of a specific grid pixel
 function eraseGridPixelColor(e) {
 	e.target.style.backgroundColor = `#474B4F`;
+	grid.forEach((gridPixel) => {
+		gridPixel.addEventListener(`mouseenter`, eraseGridPixelColor);
+	});
 }
 function stopColoringAll() {
 	gridContainer.removeEventListener(`click`, startColoringInGreen);
 	gridContainer.removeEventListener(`click`, startColoringInRainbow);
 	grid.forEach((gridPixel) => {
-		gridPixel.addEventListener(`mouseenter`, eraseGridPixelColor);
+		gridPixel.addEventListener(`click`, eraseGridPixelColor);
 	});
 }
 eraserBtn.addEventListener(`click`, stopColoringAll);
