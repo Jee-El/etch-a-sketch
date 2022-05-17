@@ -46,13 +46,10 @@ clearBtn.textContent = `clear`;
 const footer = document.createElement(`footer`);
 footer.style.cssText = `
 	align-items: center;
-	bottom: 0;
 	display: flex;
-	height: 50px;
+	height: 44px;
 	justify-content: center;
-	position: absolute;
-	width: 100%;
-	box-shadow: 0 -0.5px 4px #86c232;
+	box-shadow: 0 -0.5px 3px #86C232;
 	`;
 const footerText = document.createElement(`a`);
 footerText.style.cssText = `
@@ -63,11 +60,12 @@ footerText.style.cssText = `
 	text-decoration: none;
 	text-transform: capitalize;
 	`;
-footerText.textContent = `by jee-el`;
+footerText.textContent = `by jee-el `;
 footerText.href = `https://github.com/Jee-El/etch-a-sketch`;
 const githubIcon = document.createElement(`i`);
+githubIcon.classList.add(`icon-github`);
 githubIcon.style.cssText = `
-	color: #86c232;
+	color: #86C232;
 	font-size: 0.9rem;
 	`;
 
@@ -83,7 +81,7 @@ buttons.appendChild(rainbowColorBtn);
 buttons.appendChild(gridLinesBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
-mainContainer.appendChild(footer);
+body.appendChild(footer);
 footer.appendChild(footerText);
 footerText.appendChild(githubIcon);
 
