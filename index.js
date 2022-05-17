@@ -43,6 +43,34 @@ const clearBtn = document.createElement(`button`);
 clearBtn.setAttribute(`type`, `reset`);
 clearBtn.textContent = `clear`;
 
+const footer = document.createElement(`footer`);
+footer.style.cssText = `
+	align-items: center;
+	bottom: 0;
+	display: flex;
+	height: 50px;
+	justify-content: center;
+	position: absolute;
+	width: 100%;
+	box-shadow: 0 -0.5px 4px #86c232;
+	`;
+const footerText = document.createElement(`a`);
+footerText.style.cssText = `
+	color: #86c232;
+	font-size: 0.72rem;
+	font-weight: 500;
+	letter-spacing: 0.1rem;
+	text-decoration: none;
+	text-transform: capitalize;
+	`;
+footerText.textContent = `by jee-el`;
+footerText.href = `https://github.com/Jee-El/etch-a-sketch`;
+const githubIcon = document.createElement(`i`);
+githubIcon.style.cssText = `
+	color: #86c232;
+	font-size: 0.9rem;
+	`;
+
 // Insert elements into the DOM
 body.appendChild(mainContainer);
 mainContainer.appendChild(gridContainer);
@@ -55,6 +83,9 @@ buttons.appendChild(rainbowColorBtn);
 buttons.appendChild(gridLinesBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
+mainContainer.appendChild(footer);
+footer.appendChild(footerText);
+footerText.appendChild(githubIcon);
 
 let grid = [];
 function makeGrid(side = 16) {
