@@ -12,11 +12,12 @@ button {
 }
 
 .main-container {
+	align-items: center;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
-	align-items: center;
 	min-height: 100vh;
+	padding: 4rem 0;
 	width: 100%;
 }
 
@@ -65,8 +66,8 @@ input[type='range']::-webkit-slider-thumb {
 	appearance: none;
 	background-color: #fff;
 	border-radius: 100%;
-	margin-top: -3px;
 	height: 14px;
+	margin-top: -3px;
 	width: 14px;
 }
 
@@ -74,8 +75,8 @@ input[type='range']::-moz-range-thumb {
 	background-color: #fff;
 	border: none;
 	border-radius: 100%;
-	margin-top: -3px;
 	height: 14px;
+	margin-top: -3px;
 	width: 14px;
 }
 
@@ -84,8 +85,8 @@ input[type='range']::-moz-range-thumb {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-	max-height: 350px;
-	max-width: 350px;
+	max-height: 320px;
+	max-width: 320px;
 }
 
 .grid-container.grid-border > div {
@@ -93,41 +94,41 @@ input[type='range']::-moz-range-thumb {
 }
 
 .buttons {
+	align-items: center;
 	display: flex;
 	flex-flow: row wrap;
-	width: 80%;
-	max-width: 400px;
 	justify-content: space-between;
-	align-items: center;
+	max-width: 400px;
+	width: 80%;
 }
 
-button, input[type="color"] {
-	border: none;
-	color: #86c232;
+button,
+input[type='color'] {
 	background-color: transparent;
 	border: 2px solid #86c232;
-	width: 109px;
-	padding: 0.4rem 0.8rem;
-	text-transform: capitalize;
-	margin-top: 1.5rem;
-	letter-spacing: 0.08rem;
+	border-radius: 2px;
+	color: #86c232;
+	cursor: pointer;
 	font-size: 0.85rem;
 	font-weight: 500;
-	border-radius: 2px;
+	letter-spacing: 0.08rem;
+	margin-top: 1.5rem;
+	padding: 0.4rem 0.8rem;
+	text-transform: capitalize;
 	transition: all 100ms ease-in-out;
-	cursor: pointer;
+	width: 109px;
 }
 
-input[type="color"] {
+input[type='color'] {
 	-webkit-appearance: none;
 	border: none;
 	height: 36.78px;
 	padding: 0;
 }
-input[type="color"]::-webkit-color-swatch-wrapper {
+input[type='color']::-webkit-color-swatch-wrapper {
 	padding: 0;
 }
-input[type="color"]::-webkit-color-swatch {
+input[type='color']::-webkit-color-swatch {
 	border: none;
 	border-radius: 2px;
 }
