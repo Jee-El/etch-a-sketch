@@ -11,7 +11,7 @@ slider.setAttribute(`value`, `16`);
 
 const sliderLabel = document.createElement(`label`);
 sliderLabel.setAttribute(`for`, `slider`);
-sliderLabel.textContent = slider.value;
+sliderLabel.textContent = `${slider.value} x ${slider.value}`;
 
 const gridContainer = document.createElement(`div`);
 gridContainer.classList.add(`grid-container`);
@@ -120,7 +120,7 @@ window.addEventListener(`resize`, makeGrid);
 
 // Change grid size based on the slider value
 slider.addEventListener(`input`, () => {
-	sliderLabel.textContent = slider.value;
+	sliderLabel.textContent = `${slider.value} x ${slider.value}`;
 	// Remove previously created grid elements
 	grid = [];
 	makeGrid(slider.value);
