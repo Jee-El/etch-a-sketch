@@ -108,7 +108,7 @@ function makeGrid(side = 16) {
 			`px`;
 		grid[i].style.height =
 			parseInt(
-				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+				window.getComputedStyle(gridContainer).getPropertyValue(`max-height`)
 			) /
 				slider.value +
 			`px`;
@@ -116,7 +116,22 @@ function makeGrid(side = 16) {
 	}
 }
 makeGrid();
-window.addEventListener(`resize`, makeGrid);
+window.addEventListener(`resize`, () => {
+	grid.forEach((gridPixel) => {
+		gridPixel.style.width =
+			parseInt(
+				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+			) /
+				slider.value +
+			`px`;
+		gridPixel.style.height =
+			parseInt(
+				window.getComputedStyle(gridContainer).getPropertyValue(`max-height`)
+			) /
+				slider.value +
+			`px`;
+	});
+});
 
 // Change grid size based on the slider value
 slider.addEventListener(`input`, () => {
