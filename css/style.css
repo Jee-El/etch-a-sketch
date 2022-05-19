@@ -23,7 +23,7 @@ button {
 
 label {
 	color: #fff;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	font-weight: 500;
 	letter-spacing: 0.04rem;
 	margin-bottom: 0.5rem;
@@ -44,19 +44,19 @@ input[type='range']:focus {
 
 input[type='range']:focus::-webkit-slider-thumb,
 input[type='range']:focus::-moz-range-thumb {
-	border: 1px solid #6b6e70;
-	outline: 3px solid #6b6e70;
+	border: 1px solid #6B6E70;
+	outline: 3px solid #6B6E70;
 	outline-offset: 0.125rem;
 }
 
 input[type='range']::-webkit-slider-runnable-track {
-	background: #86c232;
+	background: #86C232;
 	border-radius: 10px;
 	height: 8px;
 }
 
 input[type='range']::-moz-range-track {
-	background: #86c232;
+	background: #86C232;
 	border-radius: 10px;
 	height: 8px;
 }
@@ -64,7 +64,7 @@ input[type='range']::-moz-range-track {
 input[type='range']::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	background-color: #fff;
+	background-color: #FFF;
 	border-radius: 100%;
 	height: 14px;
 	margin-top: -3px;
@@ -72,7 +72,7 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 input[type='range']::-moz-range-thumb {
-	background-color: #fff;
+	background-color: #FFF;
 	border: none;
 	border-radius: 100%;
 	height: 14px;
@@ -90,7 +90,7 @@ input[type='range']::-moz-range-thumb {
 }
 
 .grid-container.grid-border > div {
-	outline: 1.5px solid #6b6e70;
+	outline: 1.5px solid #6B6E70;
 }
 
 .buttons {
@@ -105,9 +105,9 @@ input[type='range']::-moz-range-thumb {
 button,
 input[type='color'] {
 	background-color: transparent;
-	border: 2px solid #86c232;
+	border: 2px solid #86C232;
 	border-radius: 2px;
-	color: #86c232;
+	color: #86C232;
 	cursor: pointer;
 	font-size: 0.85rem;
 	font-weight: 500;
@@ -135,7 +135,7 @@ input[type='color']::-webkit-color-swatch {
 
 button:hover,
 button:focus {
-	background-color: #86c232;
+	background-color: #86C232;
 	color: #000;
 }
 
