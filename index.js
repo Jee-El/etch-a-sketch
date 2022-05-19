@@ -99,7 +99,7 @@ function makeGrid(side = 16) {
 
 	// Fit grid elements into the grid container
 	for (let i = 0; i < grid.length; i++) {
-		grid[i].style.cssText = `background-color: #474B4F;`;
+		grid[i].style.backgroundColor = `#474B4F`;
 		grid[i].style.width =
 			parseInt(
 				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
@@ -115,7 +115,9 @@ function makeGrid(side = 16) {
 		gridContainer.appendChild(grid[i]);
 	}
 }
-makeGrid();
+window.addEventListener(`load`, () => {
+	makeGrid();
+});
 window.addEventListener(`resize`, () => {
 	grid.forEach((gridPixel) => {
 		gridPixel.style.width =
