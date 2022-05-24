@@ -29,6 +29,10 @@ label {
 	margin-bottom: 0.5rem;
 }
 
+.color-picker-label {
+	align-items: flex-end;
+}
+
 input[type='range'] {
 	-webkit-appearance: none;
 	appearance: none;
@@ -94,12 +98,11 @@ input[type='range']::-moz-range-thumb {
 }
 
 .buttons {
-	align-items: center;
+	align-items: flex-end;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
-	max-width: 400px;
-	width: 80%;
+	max-width: 300px;
 }
 
 button,
@@ -143,5 +146,11 @@ button:focus {
 	.grid-container {
 		max-height: 500px;
 		max-width: 500px;
+	}
+	.color-picker-label {
+		align-items: center;
+	}
+	.buttons {
+		max-width: 400px;
 	}
 }
