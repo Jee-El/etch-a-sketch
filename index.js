@@ -23,7 +23,7 @@ const colorPickerAndLabel = document.createElement(`div`);
 colorPickerAndLabel.setAttribute(`class`, `color-picker-label`);
 colorPickerAndLabel.style.cssText = `
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	flex-flow: column nowrap;
 	margin-top: 1.5rem;
 	`;
@@ -36,7 +36,7 @@ colorPicker.style.marginTop = `0px`;
 
 const colorPickerLabel = document.createElement(`label`);
 colorPickerLabel.setAttribute(`for`, `color-picker`);
-colorPickerLabel.textContent = `Choose a color`;
+colorPickerLabel.textContent = `Custom color`;
 
 const draw = document.createElement(`button`);
 draw.setAttribute(`type`, `button`);
