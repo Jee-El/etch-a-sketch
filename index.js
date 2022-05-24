@@ -244,11 +244,21 @@ gridLinesBtn.addEventListener(`click`, () => {
 });
 
 // Erase the color of a specific grid pixel
-function eraseGridPixelColor(e) {
+function startErasingGridPixelColor(e) {
+	gridContainer.classList.toggle(`currently-erasing`);
+	if (!gridContainer.classList.contains(`currently-erasing`)) {
+		grid.forEach((gridPixel) => {
+			gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
+		});
+		return;
+	}
 	e.target.style.backgroundColor = `#474B4F`;
 	grid.forEach((gridPixel) => {
 		gridPixel.addEventListener(`mouseenter`, eraseGridPixelColor);
 	});
+}
+function eraseGridPixelColor(e) {
+	e.target.style.backgroundColor = `#474B4F`;
 }
 function stopColoringAll() {
 	gridContainer.removeEventListener(`click`, startColoringInGreen);
@@ -260,15 +270,15 @@ function stopColoringAll() {
 		gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
 	});
 	grid.forEach((gridPixel) => {
-		gridPixel.addEventListener(`click`, eraseGridPixelColor);
+		gridPixel.addEventListener(`click`, startErasingGridPixelColor);
 	});
 }
 function stopErasing() {
 	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
+		gridPixel.removeEventListener(`click`, startErasingGridPixelColor);
 	});
 	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`click`, eraseGridPixelColor);
+		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
 	});
 }
 eraserBtn.addEventListener(`click`, stopColoringAll);
