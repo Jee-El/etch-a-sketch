@@ -23,10 +23,11 @@ button {
 
 label {
 	color: #fff;
-	font-size: 0.9rem;
+	font-size: 0.85rem;
 	font-weight: 500;
-	letter-spacing: 0.04rem;
+	letter-spacing: 0.08rem;
 	margin-bottom: 0.5rem;
+	align-self: flex-start;
 }
 
 .color-picker-label {
@@ -40,6 +41,7 @@ input[type='range'] {
 	cursor: pointer;
 	margin-bottom: 1.5rem;
 	width: 7rem;
+	align-self: flex-start;
 }
 
 input[type='range']:focus {
@@ -54,13 +56,13 @@ input[type='range']:focus::-moz-range-thumb {
 }
 
 input[type='range']::-webkit-slider-runnable-track {
-	background: #86c232;
+	background: #39b240;
 	border-radius: 10px;
 	height: 8px;
 }
 
 input[type='range']::-moz-range-track {
-	background: #86c232;
+	background: #39b240;
 	border-radius: 10px;
 	height: 8px;
 }
@@ -84,6 +86,21 @@ input[type='range']::-moz-range-thumb {
 	width: 14px;
 }
 
+.sub-container {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.grid-and-buttons {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	height: 320px;
+}
+
 .grid-container {
 	align-items: center;
 	display: flex;
@@ -91,6 +108,7 @@ input[type='range']::-moz-range-thumb {
 	justify-content: center;
 	max-height: 320px;
 	max-width: 320px;
+	margin-right: 3rem;
 }
 
 .grid-container.grid-border > div {
@@ -98,28 +116,48 @@ input[type='range']::-moz-range-thumb {
 }
 
 .buttons {
-	align-items: flex-end;
+	align-items: center;
 	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
-	max-width: 240px;
+	flex-flow: column wrap;
+	justify-content: center;
+	height: 100%;
 }
 
 button,
 input[type='color'] {
-	background-color: transparent;
-	border: 2px solid #86c232;
+	background-color: #39b240;
+	border: none;
 	border-radius: 2px;
-	color: #86c232;
+	color: #000;
 	cursor: pointer;
-	font-size: 0.85rem;
+	font-size: 0.9rem;
 	font-weight: 500;
-	letter-spacing: 0.08rem;
-	margin-top: 1.5rem;
+	letter-spacing: 0.04rem;
 	padding: 0.4rem 0.8rem;
 	text-transform: capitalize;
-	transition: all 100ms ease-in-out;
+	transition: color 100ms ease-in-out;
 	width: 109px;
+}
+
+button:hover {
+	color: #fff;
+}
+
+.buttons > button:not(:first-child) {
+	margin-top: 1.5rem;
+}
+
+.buttons > button:last-child {
+	background-color: transparent;
+	border: 2px solid rgba(57, 178, 64, 0.8);
+	color: #39b240;
+	padding: calc(0.4rem - 2px) 0.8rem;
+	margin-top: 3rem;
+}
+
+.buttons > button:last-child:hover {
+	border: 2px solid rgba(57, 178, 64, 0.8);
+	color: #39b240;
 }
 
 input[type='color'] {
@@ -136,13 +174,10 @@ input[type='color']::-webkit-color-swatch {
 	border-radius: 2px;
 }
 
-button:hover,
-button:focus {
-	background-color: #86c232;
-	color: #000;
-}
-
 @media (min-width: 769px) {
+	.grid-and-buttons {
+		height: 500px;
+	}
 	.grid-container {
 		max-height: 500px;
 		max-width: 500px;

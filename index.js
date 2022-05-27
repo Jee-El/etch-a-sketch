@@ -2,6 +2,9 @@ const body = document.querySelector(`body`);
 const mainContainer = document.createElement(`div`);
 mainContainer.classList.add(`main-container`);
 
+const subContainer = document.createElement(`div`);
+subContainer.classList.add(`sub-container`);
+
 const slider = document.createElement(`input`);
 slider.setAttribute(`id`, `slider`);
 slider.setAttribute(`type`, `range`);
@@ -12,6 +15,9 @@ slider.setAttribute(`value`, `16`);
 const sliderLabel = document.createElement(`label`);
 sliderLabel.setAttribute(`for`, `slider`);
 sliderLabel.textContent = `${slider.value} x ${slider.value}`;
+
+const gridAndButtons = document.createElement(`div`);
+gridAndButtons.classList.add(`grid-and-buttons`);
 
 const gridContainer = document.createElement(`div`);
 gridContainer.classList.add(`grid-container`);
@@ -25,18 +31,17 @@ colorPickerAndLabel.style.cssText = `
 	display: flex;
 	justify-content: center;
 	flex-flow: column nowrap;
-	margin-top: 1.5rem;
 	`;
 
-const colorPicker = document.createElement(`input`);
-colorPicker.setAttribute(`type`, `color`);
-colorPicker.setAttribute(`value`, `#86c232`);
-colorPicker.setAttribute(`id`, `color-picker`);
-colorPicker.style.marginTop = `0px`;
+// const colorPicker = document.createElement(`input`);
+// colorPicker.setAttribute(`type`, `color`);
+// colorPicker.setAttribute(`value`, `#39B240`);
+// colorPicker.setAttribute(`id`, `color-picker`);
+// colorPicker.style.marginTop = `0px`;
 
-const colorPickerLabel = document.createElement(`label`);
-colorPickerLabel.setAttribute(`for`, `color-picker`);
-colorPickerLabel.textContent = `Custom color`;
+// const colorPickerLabel = document.createElement(`label`);
+// colorPickerLabel.setAttribute(`for`, `color-picker`);
+// colorPickerLabel.textContent = `Custom color`;
 
 const draw = document.createElement(`button`);
 draw.setAttribute(`type`, `button`);
@@ -46,9 +51,9 @@ const rainbowColorBtn = document.createElement(`button`);
 rainbowColorBtn.setAttribute(`type`, `button`);
 rainbowColorBtn.textContent = `rainbow`;
 
-const gridLinesBtn = document.createElement(`button`);
-gridLinesBtn.setAttribute(`type`, `button`);
-gridLinesBtn.textContent = `grid lines`;
+// const gridLinesBtn = document.createElement(`button`);
+// gridLinesBtn.setAttribute(`type`, `button`);
+// gridLinesBtn.textContent = `grid lines`;
 
 const eraserBtn = document.createElement(`button`);
 eraserBtn.setAttribute(`type`, `button`);
@@ -86,16 +91,18 @@ githubIcon.style.cssText = `
 
 // Insert elements into the DOM
 body.appendChild(mainContainer);
-mainContainer.appendChild(gridContainer);
-mainContainer.insertBefore(sliderLabel, gridContainer);
-mainContainer.insertBefore(slider, gridContainer);
-mainContainer.appendChild(buttons);
+mainContainer.appendChild(subContainer);
+subContainer.appendChild(sliderLabel);
+subContainer.appendChild(slider);
+subContainer.appendChild(gridAndButtons);
+gridAndButtons.appendChild(gridContainer);
+gridAndButtons.appendChild(buttons);
 buttons.appendChild(draw);
-buttons.appendChild(colorPickerAndLabel);
-colorPickerAndLabel.appendChild(colorPickerLabel);
-colorPickerAndLabel.appendChild(colorPicker);
+// buttons.appendChild(colorPickerAndLabel);
+// colorPickerAndLabel.appendChild(colorPickerLabel);
+// colorPickerAndLabel.appendChild(colorPicker);
 buttons.appendChild(rainbowColorBtn);
-buttons.appendChild(gridLinesBtn);
+// buttons.appendChild(gridLinesBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
 body.appendChild(footer);
@@ -239,9 +246,9 @@ rainbowColorBtn.addEventListener(`click`, () => {
 });
 
 // Toggle grid lines
-gridLinesBtn.addEventListener(`click`, () => {
-	gridContainer.classList.toggle(`grid-border`);
-});
+// gridLinesBtn.addEventListener(`click`, () => {
+// 	gridContainer.classList.toggle(`grid-border`);
+// });
 
 // Erase the color of a specific grid pixel
 function startErasingGridPixelColor(e) {
