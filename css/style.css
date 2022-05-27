@@ -26,12 +26,6 @@ label {
 	font-size: 0.85rem;
 	font-weight: 500;
 	letter-spacing: 0.08rem;
-	margin-bottom: 0.5rem;
-	align-self: flex-start;
-}
-
-.color-picker-label {
-	align-items: flex-start;
 }
 
 input[type='range'] {
@@ -39,7 +33,6 @@ input[type='range'] {
 	appearance: none;
 	background: transparent;
 	cursor: pointer;
-	margin-bottom: 1.5rem;
 	width: 7rem;
 	align-self: flex-start;
 }
@@ -90,7 +83,7 @@ input[type='range']::-moz-range-thumb {
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 }
 
 .grid-and-buttons {
@@ -156,8 +149,7 @@ button:hover {
 }
 
 .buttons > button:last-child:hover {
-	border: 2px solid rgba(57, 178, 64, 0.8);
-	color: #39b240;
+	color: #fff;
 }
 
 input[type='color'] {

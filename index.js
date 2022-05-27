@@ -5,6 +5,15 @@ mainContainer.classList.add(`main-container`);
 const subContainer = document.createElement(`div`);
 subContainer.classList.add(`sub-container`);
 
+const sliderAndLabel = document.createElement(`div`);
+sliderAndLabel.style.cssText = `
+	align-items: center;
+	display:flex;
+	justify-content: space-between;
+	margin-bottom: 1rem;
+	width: 175px;
+	`;
+
 const slider = document.createElement(`input`);
 slider.setAttribute(`id`, `slider`);
 slider.setAttribute(`type`, `range`);
@@ -14,6 +23,7 @@ slider.setAttribute(`value`, `16`);
 
 const sliderLabel = document.createElement(`label`);
 sliderLabel.setAttribute(`for`, `slider`);
+sliderLabel.style.marginTop = `-5px`;
 sliderLabel.textContent = `${slider.value} x ${slider.value}`;
 
 const gridAndButtons = document.createElement(`div`);
@@ -46,10 +56,11 @@ const colorPickerSwatch = document.createElement(`input`);
 colorPickerSwatch.setAttribute(`type`, `color`);
 colorPickerSwatch.setAttribute(`value`, `#39B240`);
 colorPickerSwatch.setAttribute(`id`, `color-picker`);
-colorPickerSwatch.style.marginTop = `0px`;
+colorPickerSwatch.style.marginBottom = `0px`;
 
 const colorPickerSwatchLabel = document.createElement(`label`);
 colorPickerSwatchLabel.setAttribute(`for`, `color-picker`);
+colorPickerSwatchLabel.style.marginBottom = `0.5rem`;
 colorPickerSwatchLabel.textContent = `Pick a color`;
 
 const colorPickerHex = document.createElement(`input`);
@@ -75,9 +86,17 @@ const rainbowColorBtn = document.createElement(`button`);
 rainbowColorBtn.setAttribute(`type`, `button`);
 rainbowColorBtn.textContent = `rainbow`;
 
-// const gridLinesBtn = document.createElement(`button`);
-// gridLinesBtn.setAttribute(`type`, `button`);
-// gridLinesBtn.textContent = `grid lines`;
+const gridLinesLabel = document.createElement(`label`);
+gridLinesLabel.setAttribute(`for`, `grid-lines-toggle`);
+gridLinesLabel.textContent = `Grid Lines`;
+
+const gridLinesCheckbox = document.createElement(`input`);
+gridLinesCheckbox.setAttribute(`type`, `checkbox`);
+gridLinesCheckbox.setAttribute(`id`, `grid-lines-toggle`);
+gridLinesCheckbox.textContent = `grid lines`;
+gridLinesCheckbox.style.alignSelf = `flex-start`;
+
+const gridLinesToggleSlider = document.createElement(`span`);
 
 const eraserBtn = document.createElement(`button`);
 eraserBtn.setAttribute(`type`, `button`);
@@ -93,11 +112,11 @@ footer.style.cssText = `
 	display: flex;
 	height: 44px;
 	justify-content: center;
-	box-shadow: 0 -0.5px 3px #86C232;
+	box-shadow: 0 -0.5px 3px #39b240;
 	`;
 const footerText = document.createElement(`a`);
 footerText.style.cssText = `
-	color: #86c232;
+	color: #39b240;
 	font-size: 0.72rem;
 	font-weight: 500;
 	letter-spacing: 0.1rem;
@@ -109,15 +128,16 @@ footerText.href = `https://github.com/Jee-El/etch-a-sketch`;
 const githubIcon = document.createElement(`i`);
 githubIcon.classList.add(`icon-github`);
 githubIcon.style.cssText = `
-	color: #86C232;
+	color: #39b240;
 	font-size: 0.9rem;
 	`;
 
 // Insert elements into the DOM
 body.appendChild(mainContainer);
 mainContainer.appendChild(subContainer);
-subContainer.appendChild(sliderLabel);
-subContainer.appendChild(slider);
+subContainer.appendChild(sliderAndLabel);
+sliderAndLabel.appendChild(sliderLabel);
+sliderAndLabel.appendChild(slider);
 subContainer.appendChild(gridAndButtons);
 gridAndButtons.appendChild(gridContainer);
 gridAndButtons.appendChild(buttons);
@@ -128,9 +148,11 @@ colorPickersAndLabel.appendChild(colorPickers);
 colorPickers.appendChild(colorPickerSwatch);
 colorPickers.appendChild(colorPickerHex);
 buttons.appendChild(rainbowColorBtn);
-// buttons.appendChild(gridLinesBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
+subContainer.appendChild(gridLinesLabel);
+gridLinesLabel.appendChild(gridLinesCheckbox);
+gridLinesLabel.appendChild(gridLinesToggleSlider);
 body.appendChild(footer);
 footer.appendChild(footerText);
 footerText.appendChild(githubIcon);
