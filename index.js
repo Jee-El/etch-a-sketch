@@ -25,23 +25,47 @@ gridContainer.classList.add(`grid-container`);
 const buttons = document.createElement(`div`);
 buttons.classList.add(`buttons`);
 
-const colorPickerAndLabel = document.createElement(`div`);
-colorPickerAndLabel.setAttribute(`class`, `color-picker-label`);
-colorPickerAndLabel.style.cssText = `
+const colorPickersAndLabel = document.createElement(`div`);
+colorPickersAndLabel.setAttribute(`class`, `color-picker-label`);
+colorPickersAndLabel.style.cssText = `
 	display: flex;
 	justify-content: center;
 	flex-flow: column nowrap;
 	`;
 
-// const colorPicker = document.createElement(`input`);
-// colorPicker.setAttribute(`type`, `color`);
-// colorPicker.setAttribute(`value`, `#39B240`);
-// colorPicker.setAttribute(`id`, `color-picker`);
-// colorPicker.style.marginTop = `0px`;
+const colorPickers = document.createElement(`div`);
+colorPickers.style.cssText = `
+	align-items: center;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	width: 130px;
+	`;
 
-// const colorPickerLabel = document.createElement(`label`);
-// colorPickerLabel.setAttribute(`for`, `color-picker`);
-// colorPickerLabel.textContent = `Custom color`;
+const colorPickerSwatch = document.createElement(`input`);
+colorPickerSwatch.setAttribute(`type`, `color`);
+colorPickerSwatch.setAttribute(`value`, `#39B240`);
+colorPickerSwatch.setAttribute(`id`, `color-picker`);
+colorPickerSwatch.style.marginTop = `0px`;
+
+const colorPickerSwatchLabel = document.createElement(`label`);
+colorPickerSwatchLabel.setAttribute(`for`, `color-picker`);
+colorPickerSwatchLabel.textContent = `Pick a color`;
+
+const colorPickerHex = document.createElement(`input`);
+colorPickerHex.setAttribute(`type`, `text`);
+colorPickerHex.setAttribute(`value`, `#39B240`);
+colorPickerHex.style.cssText = `
+	background-color: #000;
+	border: none;
+	border-radius: 10px;
+	color: #39B240;
+	letter-spacing: 0.06rem;
+	padding: 0.2rem 0.6rem;
+	min-height: fit-content;
+	max-width: calc(93px - 0.8rem);
+	`;
+colorPickerHex.setAttribute(`area-label`, `Pick a color in hex format`);
 
 const draw = document.createElement(`button`);
 draw.setAttribute(`type`, `button`);
@@ -98,9 +122,11 @@ subContainer.appendChild(gridAndButtons);
 gridAndButtons.appendChild(gridContainer);
 gridAndButtons.appendChild(buttons);
 buttons.appendChild(draw);
-// buttons.appendChild(colorPickerAndLabel);
-// colorPickerAndLabel.appendChild(colorPickerLabel);
-// colorPickerAndLabel.appendChild(colorPicker);
+buttons.insertBefore(colorPickersAndLabel, draw);
+colorPickersAndLabel.appendChild(colorPickerSwatchLabel);
+colorPickersAndLabel.appendChild(colorPickers);
+colorPickers.appendChild(colorPickerSwatch);
+colorPickers.appendChild(colorPickerHex);
 buttons.appendChild(rainbowColorBtn);
 // buttons.appendChild(gridLinesBtn);
 buttons.appendChild(eraserBtn);
@@ -167,6 +193,22 @@ slider.addEventListener(`input`, () => {
 	makeGrid(slider.value);
 });
 
+// Make input change the color, and vice versa
+colorPickerHex.addEventListener(`change`, (e) => {
+	let hexCode = e.target.value;
+	if (!(hexCode.startsWith(`#`))) {
+		hexCode = `#` + hexCode;
+	}
+	if (hexCode.length === 4) {
+		hexCode = hexCode + hexCode.slice(1);
+	}
+	colorPickerHex.value = hexCode;
+	colorPickerSwatch.value = hexCode;
+});
+colorPickerSwatch.addEventListener(`input`, ( )=> {
+	colorPickerHex.style.color = colorPickerSwatch.value;
+});
+
 // Color the grid in green on first click
 // Stop it on second click
 function startColoringInGreen(e) {
@@ -177,13 +219,13 @@ function startColoringInGreen(e) {
 		});
 		return;
 	}
-	e.target.style.backgroundColor = colorPicker.value;
+	e.target.style.backgroundColor = colorPickerSwatch.value;
 	grid.forEach((gridPixel) => {
 		gridPixel.addEventListener(`mouseenter`, colorGridInGreen);
 	});
 }
 function colorGridInGreen(e) {
-	e.target.style.backgroundColor = colorPicker.value;
+	e.target.style.backgroundColor = colorPickerSwatch.value;
 }
 // Stop coloring in any color other than green
 function stopColoringInRainbow() {
