@@ -152,7 +152,7 @@ button:hover {
 	border: 2px solid rgba(57, 178, 64, 0.8);
 	color: #39b240;
 	padding: calc(0.4rem - 2px) 0.8rem;
-	margin-top: 3rem;
+	margin-top: 1.5rem;
 }
 
 .buttons > button:last-child:hover {
@@ -189,5 +189,11 @@ input[type='color']::-webkit-color-swatch {
 	}
 	.buttons {
 		max-width: 400px;
+	}
+	.buttons > div {
+		margin-bottom: 1rem;
+	}
+	.buttons > button:last-child {
+		margin-top: 2.5rem;
 	}
 }
