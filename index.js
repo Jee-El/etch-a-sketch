@@ -5,26 +5,26 @@ mainContainer.classList.add(`main-container`);
 const subContainer = document.createElement(`div`);
 subContainer.classList.add(`sub-container`);
 
-const sliderAndLabel = document.createElement(`div`);
-sliderAndLabel.style.cssText = `
+const gridSizeSliderAndLabel = document.createElement(`div`);
+gridSizeSliderAndLabel.style.cssText = `
 	align-items: center;
 	display:flex;
-	justify-content: space-between;
+	flex-flow: column nowrap;
+	justify-content: center;
 	margin-bottom: 1rem;
-	width: 175px;
 	`;
 
-const slider = document.createElement(`input`);
-slider.setAttribute(`id`, `slider`);
-slider.setAttribute(`type`, `range`);
-slider.setAttribute(`min`, `12`);
-slider.setAttribute(`max`, `100`);
-slider.setAttribute(`value`, `16`);
+const gridSizeSlider = document.createElement(`input`);
+gridSizeSlider.setAttribute(`id`, `slider`);
+gridSizeSlider.setAttribute(`type`, `range`);
+gridSizeSlider.setAttribute(`min`, `12`);
+gridSizeSlider.setAttribute(`max`, `80`);
+gridSizeSlider.setAttribute(`value`, `16`);
 
-const sliderLabel = document.createElement(`label`);
-sliderLabel.setAttribute(`for`, `slider`);
-sliderLabel.style.marginTop = `-5px`;
-sliderLabel.textContent = `${slider.value} x ${slider.value}`;
+const gridSizeLabel = document.createElement(`label`);
+gridSizeLabel.setAttribute(`for`, `slider`);
+gridSizeLabel.style.marginBottom = `0.25rem`;
+gridSizeLabel.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
 
 const gridAndButtons = document.createElement(`div`);
 gridAndButtons.classList.add(`grid-and-buttons`);
@@ -66,37 +66,28 @@ colorPickerSwatchLabel.textContent = `Pick a color`;
 const colorPickerHex = document.createElement(`input`);
 colorPickerHex.setAttribute(`type`, `text`);
 colorPickerHex.setAttribute(`value`, `#39B240`);
+colorPickerHex.setAttribute(`spellcheck`, `false`);
 colorPickerHex.style.cssText = `
-	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.5);
 	border: none;
-	border-radius: 10px;
+	border-radius: 4px;
 	color: #39B240;
-	letter-spacing: 0.06rem;
+	font-size: 0.75rem;
+	font-weight: 400;
+	letter-spacing: 0.08rem;
 	padding: 0.2rem 0.6rem;
 	min-height: fit-content;
-	max-width: calc(93px - 0.8rem);
+	max-width: calc(93px - 0.6rem);
 	`;
 colorPickerHex.setAttribute(`area-label`, `Pick a color in hex format`);
 
-const draw = document.createElement(`button`);
-draw.setAttribute(`type`, `button`);
-draw.textContent = `Draw`;
+const drawBtn = document.createElement(`button`);
+drawBtn.setAttribute(`type`, `button`);
+drawBtn.textContent = `Draw`;
 
 const rainbowColorBtn = document.createElement(`button`);
 rainbowColorBtn.setAttribute(`type`, `button`);
 rainbowColorBtn.textContent = `rainbow`;
-
-const gridLinesLabel = document.createElement(`label`);
-gridLinesLabel.setAttribute(`for`, `grid-lines-toggle`);
-gridLinesLabel.textContent = `Grid Lines`;
-
-const gridLinesCheckbox = document.createElement(`input`);
-gridLinesCheckbox.setAttribute(`type`, `checkbox`);
-gridLinesCheckbox.setAttribute(`id`, `grid-lines-toggle`);
-gridLinesCheckbox.textContent = `grid lines`;
-gridLinesCheckbox.style.alignSelf = `flex-start`;
-
-const gridLinesToggleSlider = document.createElement(`span`);
 
 const eraserBtn = document.createElement(`button`);
 eraserBtn.setAttribute(`type`, `button`);
@@ -105,6 +96,45 @@ eraserBtn.textContent = `eraser`;
 const clearBtn = document.createElement(`button`);
 clearBtn.setAttribute(`type`, `reset`);
 clearBtn.textContent = `clear`;
+
+// const gridLinesLabel = document.createElement(`label`);
+// gridLinesLabel.setAttribute(`for`, `grid-lines-checkbox`);
+// gridLinesLabel.classList.add(`grid-lines-label`);
+// gridLinesLabel.textContent = `Grid Lines`;
+// gridLinesLabel.style.marginTop = `1rem`;
+
+// const gridLinesSlider = document.createElement(`div`);
+// gridLinesSlider.classList.add(`grid-lines-slider`);
+
+// const gridLinesCheckbox = document.createElement(`input`);
+// gridLinesCheckbox.setAttribute(`type`, `checkbox`);
+// gridLinesCheckbox.setAttribute(`id`, `grid-lines-checkbox`);
+// gridLinesCheckbox.classList.add(`grid-lines-checkbox`);
+
+// const gridLinesCircle = document.createElement(`span`);
+
+const gridLines = document.createElement(`div`);
+gridLines.style.cssText = `
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	margin-top: 1rem;
+	`;
+
+const gridLinesLabel = document.createElement(`label`);
+gridLinesLabel.setAttribute(`for`, `grid-lines-input`);
+gridLinesLabel.classList.add(`grid-lines-label`);
+gridLinesLabel.textContent = `Grid Lines`;
+
+const gridLinesInput = document.createElement(`input`);
+gridLinesInput.setAttribute(`id`, `grid-lines-input`);
+gridLinesInput.setAttribute(`type`, `checkbox`);
+
+const gridLinesSlider = document.createElement(`span`);
+gridLinesSlider.classList.add(`slider`);
+const gridLinesCircle = document.createElement(`span`);
+gridLinesCircle.classList.add(`circle`);
 
 const footer = document.createElement(`footer`);
 footer.style.cssText = `
@@ -135,14 +165,14 @@ githubIcon.style.cssText = `
 // Insert elements into the DOM
 body.appendChild(mainContainer);
 mainContainer.appendChild(subContainer);
-subContainer.appendChild(sliderAndLabel);
-sliderAndLabel.appendChild(sliderLabel);
-sliderAndLabel.appendChild(slider);
+subContainer.appendChild(gridSizeSliderAndLabel);
+gridSizeSliderAndLabel.appendChild(gridSizeLabel);
+gridSizeSliderAndLabel.appendChild(gridSizeSlider);
 subContainer.appendChild(gridAndButtons);
 gridAndButtons.appendChild(gridContainer);
 gridAndButtons.appendChild(buttons);
-buttons.appendChild(draw);
-buttons.insertBefore(colorPickersAndLabel, draw);
+buttons.appendChild(drawBtn);
+buttons.insertBefore(colorPickersAndLabel, drawBtn);
 colorPickersAndLabel.appendChild(colorPickerSwatchLabel);
 colorPickersAndLabel.appendChild(colorPickers);
 colorPickers.appendChild(colorPickerSwatch);
@@ -150,9 +180,11 @@ colorPickers.appendChild(colorPickerHex);
 buttons.appendChild(rainbowColorBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
-subContainer.appendChild(gridLinesLabel);
-gridLinesLabel.appendChild(gridLinesCheckbox);
-gridLinesLabel.appendChild(gridLinesToggleSlider);
+subContainer.appendChild(gridLines);
+gridLines.appendChild(gridLinesLabel);
+gridLinesLabel.appendChild(gridLinesInput);
+gridLinesLabel.appendChild(gridLinesSlider)
+gridLinesSlider.appendChild(gridLinesCircle);
 body.appendChild(footer);
 footer.appendChild(footerText);
 footerText.appendChild(githubIcon);
@@ -176,49 +208,65 @@ function makeGrid(side = 16) {
 			parseInt(
 				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
 			) /
-				slider.value +
+				gridSizeSlider.value +
 			`px`;
 		grid[i].style.height =
 			parseInt(
 				window.getComputedStyle(gridContainer).getPropertyValue(`max-height`)
 			) /
-				slider.value +
+				gridSizeSlider.value +
 			`px`;
 		gridContainer.appendChild(grid[i]);
 	}
 }
 window.addEventListener(`load`, () => {
+	gridLines.style.width =
+		parseInt(
+			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+		) + `px`;
+	gridSizeSliderAndLabel.style.width =
+		parseInt(
+			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+		) + `px`;
 	makeGrid();
 });
 window.addEventListener(`resize`, () => {
+	gridLines.style.width =
+		parseInt(
+			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+		) + `px`;
+	gridSizeSliderAndLabel.style.width =
+		parseInt(
+			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+		) + `px`;
 	grid.forEach((gridPixel) => {
 		gridPixel.style.width =
 			parseInt(
 				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
 			) /
-				slider.value +
+				gridSizeSlider.value +
 			`px`;
 		gridPixel.style.height =
 			parseInt(
 				window.getComputedStyle(gridContainer).getPropertyValue(`max-height`)
 			) /
-				slider.value +
+				gridSizeSlider.value +
 			`px`;
 	});
 });
 
 // Change grid size based on the slider value
-slider.addEventListener(`input`, () => {
-	sliderLabel.textContent = `${slider.value} x ${slider.value}`;
+gridSizeSlider.addEventListener(`input`, () => {
+	gridSizeLabel.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
 	// Remove previously created grid elements
 	grid = [];
-	makeGrid(slider.value);
+	makeGrid(gridSizeSlider.value);
 });
 
 // Make input change the color, and vice versa
 colorPickerHex.addEventListener(`change`, (e) => {
 	let hexCode = e.target.value;
-	if (!(hexCode.startsWith(`#`))) {
+	if (!hexCode.startsWith(`#`)) {
 		hexCode = `#` + hexCode;
 	}
 	if (hexCode.length === 4) {
@@ -227,7 +275,7 @@ colorPickerHex.addEventListener(`change`, (e) => {
 	colorPickerHex.value = hexCode;
 	colorPickerSwatch.value = hexCode;
 });
-colorPickerSwatch.addEventListener(`input`, ( )=> {
+colorPickerSwatch.addEventListener(`input`, () => {
 	colorPickerHex.style.color = colorPickerSwatch.value;
 });
 
@@ -263,7 +311,7 @@ function stopColoringInRainbow() {
 	}
 	gridContainer.addEventListener(`click`, startColoringInGreen);
 }
-draw.addEventListener(`click`, () => {
+drawBtn.addEventListener(`click`, () => {
 	stopErasing();
 	stopColoringInRainbow();
 });
