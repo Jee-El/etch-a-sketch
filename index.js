@@ -155,7 +155,7 @@ buttons.appendChild(clearBtn);
 body.appendChild(footer);
 footer.appendChild(footerText);
 footerText.appendChild(githubIcon);
-
+let max;
 let grid = [];
 function makeGrid(side = 16) {
 	// Remove previous grid from the web page
@@ -171,38 +171,20 @@ function makeGrid(side = 16) {
 	// Fit grid elements into the grid container
 	for (let i = 0; i < grid.length; i++) {
 		grid[i].style.backgroundColor = `#474B4F`;
-		grid[i].style.width =
-			parseInt(
-				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
-			) /
-				gridSizeSlider.value +
-			`px`;
-		grid[i].style.height =
-			parseInt(
-				window.getComputedStyle(gridContainer).getPropertyValue(`max-height`)
-			) /
-				gridSizeSlider.value +
-			`px`;
+		grid[i].style.width = max;
+		grid[i].style.height = max;
 		gridContainer.appendChild(grid[i]);
 	}
 }
 window.addEventListener(`load`, () => {
+	max = parseInt(window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)) / gridSizeSlider.value + `px`;
 	makeGrid();
 });
 window.addEventListener(`resize`, () => {
+	max = parseInt(window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)) / gridSizeSlider.value + `px`;
 	grid.forEach((gridPixel) => {
-		gridPixel.style.width =
-			parseInt(
-				window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
-			) /
-				gridSizeSlider.value +
-			`px`;
-		gridPixel.style.height =
-			parseInt(
-				window.getComputedStyle(gridContainer).getPropertyValue(`max-height`)
-			) /
-				gridSizeSlider.value +
-			`px`;
+		gridPixel.style.width = max;
+		gridPixel.style.height = max;
 	});
 });
 
