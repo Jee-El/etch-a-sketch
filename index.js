@@ -155,6 +155,7 @@ buttons.appendChild(clearBtn);
 body.appendChild(footer);
 footer.appendChild(footerText);
 footerText.appendChild(githubIcon);
+
 let max;
 let grid = [];
 function makeGrid(side = 16) {
@@ -177,11 +178,21 @@ function makeGrid(side = 16) {
 	}
 }
 window.addEventListener(`load`, () => {
-	max = parseInt(window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)) / gridSizeSlider.value + `px`;
+	max =
+		parseInt(
+			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+		) /
+			gridSizeSlider.value +
+		`px`;
 	makeGrid();
 });
 window.addEventListener(`resize`, () => {
-	max = parseInt(window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)) / gridSizeSlider.value + `px`;
+	max =
+		parseInt(
+			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+		) /
+			gridSizeSlider.value +
+		`px`;
 	grid.forEach((gridPixel) => {
 		gridPixel.style.width = max;
 		gridPixel.style.height = max;
@@ -247,7 +258,9 @@ function stopColoringInRainbow() {
 	gridContainer.addEventListener(`click`, startColoringInGreen);
 }
 drawBtn.addEventListener(`click`, () => {
-	stopErasing();
+	if (gridContainer.classList.contains(`currently-erasing`)) {
+		stopErasing();
+	}
 	stopColoringInRainbow();
 });
 
@@ -288,7 +301,9 @@ function stopColoringInGreen() {
 	gridContainer.addEventListener(`click`, startColoringInRainbow);
 }
 rainbowColorBtn.addEventListener(`click`, () => {
-	stopErasing();
+	if (gridContainer.classList.contains(`currently-erasing`)) {
+		stopErasing();
+	}
 	stopColoringInGreen();
 });
 
@@ -328,6 +343,7 @@ function stopColoringAll() {
 	});
 }
 function stopErasing() {
+	gridContainer.classList.remove(`currently-erasing`);
 	grid.forEach((gridPixel) => {
 		gridPixel.removeEventListener(`click`, startErasingGridPixelColor);
 	});
