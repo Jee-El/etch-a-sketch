@@ -20,22 +20,32 @@ gridSizeLabel.setAttribute(`for`, `slider`);
 gridSizeLabel.style.marginBottom = `0.25rem`;
 gridSizeLabel.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
 
-const gridAndButtons = document.createElement(`div`);
-gridAndButtons.classList.add(`grid-and-buttons`);
-
 const gridContainer = document.createElement(`div`);
 gridContainer.classList.add(`grid-container`, `grid-border`);
 
-const buttons = document.createElement(`div`);
-buttons.classList.add(`buttons`);
+const gridLines = document.createElement(`div`);
+gridLines.classList.add(`grid-lines`);
+
+const gridLinesLabel = document.createElement(`label`);
+gridLinesLabel.setAttribute(`for`, `grid-lines-input`);
+gridLinesLabel.classList.add(`grid-lines-label`);
+gridLinesLabel.textContent = `Grid Lines`;
+
+const gridLinesInput = document.createElement(`input`);
+gridLinesInput.setAttribute(`id`, `grid-lines-input`);
+gridLinesInput.setAttribute(`type`, `checkbox`);
+gridLinesInput.setAttribute(`checked`, `true`);
+
+const gridLinesSlider = document.createElement(`span`);
+gridLinesSlider.classList.add(`slider`);
+const gridLinesCircle = document.createElement(`span`);
+gridLinesCircle.classList.add(`circle`);
+
+const inputAndButtons = document.createElement(`div`);
+inputAndButtons.classList.add(`input-and-buttons`);
 
 const colorPickersAndLabel = document.createElement(`div`);
-colorPickersAndLabel.setAttribute(`class`, `color-picker-label`);
-colorPickersAndLabel.style.cssText = `
-	display: flex;
-	justify-content: center;
-	flex-flow: column nowrap;
-	`;
+colorPickersAndLabel.setAttribute(`class`, `color-pickers-and-label`);
 
 const colorPickers = document.createElement(`div`);
 colorPickers.style.cssText = `
@@ -49,12 +59,11 @@ colorPickers.style.cssText = `
 const colorPickerSwatch = document.createElement(`input`);
 colorPickerSwatch.setAttribute(`type`, `color`);
 colorPickerSwatch.setAttribute(`value`, `#39B240`);
-colorPickerSwatch.setAttribute(`id`, `color-picker`);
+colorPickerSwatch.setAttribute(`id`, `swatch`);
 colorPickerSwatch.style.marginBottom = `0px`;
 
 const colorPickerSwatchLabel = document.createElement(`label`);
-colorPickerSwatchLabel.setAttribute(`for`, `color-picker`);
-colorPickerSwatchLabel.style.marginBottom = `0.5rem`;
+colorPickerSwatchLabel.setAttribute(`for`, `swatch`);
 colorPickerSwatchLabel.textContent = `Pick a color`;
 
 const colorPickerHex = document.createElement(`input`);
@@ -75,6 +84,9 @@ colorPickerHex.style.cssText = `
 	`;
 colorPickerHex.setAttribute(`area-label`, `Pick a color in hex format`);
 
+const buttons = document.createElement(`div`);
+buttons.classList.add(`buttons`);
+
 const drawBtn = document.createElement(`button`);
 drawBtn.setAttribute(`type`, `button`);
 drawBtn.textContent = `Draw`;
@@ -90,24 +102,6 @@ eraserBtn.textContent = `eraser`;
 const clearBtn = document.createElement(`button`);
 clearBtn.setAttribute(`type`, `reset`);
 clearBtn.textContent = `clear`;
-
-const gridLines = document.createElement(`div`);
-gridLines.classList.add(`grid-lines`);
-
-const gridLinesLabel = document.createElement(`label`);
-gridLinesLabel.setAttribute(`for`, `grid-lines-input`);
-gridLinesLabel.classList.add(`grid-lines-label`);
-gridLinesLabel.textContent = `Grid Lines`;
-
-const gridLinesInput = document.createElement(`input`);
-gridLinesInput.setAttribute(`id`, `grid-lines-input`);
-gridLinesInput.setAttribute(`type`, `checkbox`);
-gridLinesInput.setAttribute(`checked`, `true`);
-
-const gridLinesSlider = document.createElement(`span`);
-gridLinesSlider.classList.add(`slider`);
-const gridLinesCircle = document.createElement(`span`);
-gridLinesCircle.classList.add(`circle`);
 
 const footer = document.createElement(`footer`);
 footer.style.cssText = `
@@ -141,23 +135,23 @@ mainContainer.appendChild(subContainer);
 subContainer.appendChild(gridSizeSliderAndLabel);
 gridSizeSliderAndLabel.appendChild(gridSizeLabel);
 gridSizeSliderAndLabel.appendChild(gridSizeSlider);
-subContainer.appendChild(gridAndButtons);
-gridAndButtons.appendChild(gridContainer);
-gridAndButtons.appendChild(buttons);
-buttons.appendChild(drawBtn);
-buttons.insertBefore(colorPickersAndLabel, drawBtn);
-colorPickersAndLabel.appendChild(colorPickerSwatchLabel);
-colorPickersAndLabel.appendChild(colorPickers);
-colorPickers.appendChild(colorPickerSwatch);
-colorPickers.appendChild(colorPickerHex);
-buttons.appendChild(rainbowColorBtn);
-buttons.appendChild(eraserBtn);
-buttons.appendChild(clearBtn);
-gridAndButtons.appendChild(gridLines);
+subContainer.appendChild(gridContainer);
+subContainer.appendChild(gridLines);
 gridLines.appendChild(gridLinesLabel);
 gridLinesLabel.appendChild(gridLinesInput);
 gridLinesLabel.appendChild(gridLinesSlider);
 gridLinesSlider.appendChild(gridLinesCircle);
+mainContainer.appendChild(inputAndButtons);
+inputAndButtons.appendChild(colorPickersAndLabel);
+colorPickersAndLabel.appendChild(colorPickerSwatchLabel);
+colorPickersAndLabel.appendChild(colorPickers);
+colorPickers.appendChild(colorPickerSwatch);
+colorPickers.appendChild(colorPickerHex);
+inputAndButtons.appendChild(buttons);
+buttons.appendChild(drawBtn);
+buttons.appendChild(rainbowColorBtn);
+buttons.appendChild(eraserBtn);
+buttons.appendChild(clearBtn);
 body.appendChild(footer);
 footer.appendChild(footerText);
 footerText.appendChild(githubIcon);
@@ -193,33 +187,9 @@ function makeGrid(side = 16) {
 	}
 }
 window.addEventListener(`load`, () => {
-	gridLines.style.width =
-		parseInt(
-			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
-		) + `px`;
-	gridSizeSliderAndLabel.style.width =
-		parseInt(
-			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
-		) + `px`;
-	gridAndButtons.style.maxWidth =
-		window.getComputedStyle(gridContainer).getPropertyValue(`max-width`) +
-		130 +
-		`px`;
 	makeGrid();
 });
 window.addEventListener(`resize`, () => {
-	gridLines.style.width =
-		parseInt(
-			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
-		) + `px`;
-	gridSizeSliderAndLabel.style.width =
-		parseInt(
-			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
-		) + `px`;
-	gridAndButtons.style.maxWidth =
-		window.getComputedStyle(gridContainer).getPropertyValue(`max-width`) +
-		130 +
-		`px`;
 	grid.forEach((gridPixel) => {
 		gridPixel.style.width =
 			parseInt(
