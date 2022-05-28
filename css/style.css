@@ -160,6 +160,12 @@ button:hover {
 	}
 }
 
+@media (orientation: landscape) and (max-width: 900px) {
+	.main-container {
+		padding: 3rem 0;
+	}
+}
+
 input[type='range'] {
 	-webkit-appearance: none;
 	appearance: none;
