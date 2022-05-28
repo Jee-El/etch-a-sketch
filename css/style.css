@@ -14,7 +14,7 @@ body {
 	align-items: center;
 	display: flex;
 	flex-flow: column nowrap;
-	justify-content: center;
+	justify-content: flex-start;
 	min-height: 100vh;
 	padding: 4rem 0;
 	width: 100%;
@@ -28,15 +28,24 @@ label {
 }
 
 .sub-container {
+	align-items: flex-start;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
-	align-items: flex-start;
+}
+
+.grid-size {
+	align-items: center;
+	display:flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	margin-bottom: 1.5rem;
+	align-self: center;
 }
 
 .grid-and-buttons {
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: row wrap;
 	justify-content: center;
 	align-items: center;
 	height: 320px;
@@ -49,7 +58,6 @@ label {
 	justify-content: center;
 	max-height: 320px;
 	max-width: 320px;
-	margin-right: 3rem;
 }
 
 .grid-container.grid-border > div {
@@ -100,6 +108,17 @@ button:hover {
 	color: #fff;
 }
 
+.color-picker-label {
+	align-items: center;
+}
+
+.grid-lines {
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+}
+
 .grid-lines-label {
 	display: flex;
 	flex-flow: column nowrap;
@@ -121,7 +140,7 @@ button:hover {
 	width: 40px;
 	border-radius: 10px;
 	cursor: pointer;
-	margin-top: 0.5rem;
+	margin-top: 0.25rem;
 }
 
 .circle {
@@ -138,15 +157,25 @@ button:hover {
 }
 
 @media (min-width: 769px) {
+	.main-container {
+		justify-content: center;
+	}
+	.sub-container {
+		margin-left: 154px;
+	}
+	.grid-size {
+		align-self: unset;
+	}
 	.grid-and-buttons {
 		height: 500px;
 	}
 	.grid-container {
+		margin-right: 3rem;
 		max-height: 500px;
 		max-width: 500px;
 	}
 	.color-picker-label {
-		align-items: center;
+		align-items: flex-start;
 	}
 	.buttons {
 		max-width: 400px;

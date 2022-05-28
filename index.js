@@ -6,13 +6,7 @@ const subContainer = document.createElement(`div`);
 subContainer.classList.add(`sub-container`);
 
 const gridSizeSliderAndLabel = document.createElement(`div`);
-gridSizeSliderAndLabel.style.cssText = `
-	align-items: center;
-	display:flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	margin-bottom: 1rem;
-	`;
+gridSizeSliderAndLabel.classList.add(`grid-size`);
 
 const gridSizeSlider = document.createElement(`input`);
 gridSizeSlider.setAttribute(`id`, `slider`);
@@ -30,7 +24,7 @@ const gridAndButtons = document.createElement(`div`);
 gridAndButtons.classList.add(`grid-and-buttons`);
 
 const gridContainer = document.createElement(`div`);
-gridContainer.classList.add(`grid-container`);
+gridContainer.classList.add(`grid-container`, `grid-border`);
 
 const buttons = document.createElement(`div`);
 buttons.classList.add(`buttons`);
@@ -97,30 +91,8 @@ const clearBtn = document.createElement(`button`);
 clearBtn.setAttribute(`type`, `reset`);
 clearBtn.textContent = `clear`;
 
-// const gridLinesLabel = document.createElement(`label`);
-// gridLinesLabel.setAttribute(`for`, `grid-lines-checkbox`);
-// gridLinesLabel.classList.add(`grid-lines-label`);
-// gridLinesLabel.textContent = `Grid Lines`;
-// gridLinesLabel.style.marginTop = `1rem`;
-
-// const gridLinesSlider = document.createElement(`div`);
-// gridLinesSlider.classList.add(`grid-lines-slider`);
-
-// const gridLinesCheckbox = document.createElement(`input`);
-// gridLinesCheckbox.setAttribute(`type`, `checkbox`);
-// gridLinesCheckbox.setAttribute(`id`, `grid-lines-checkbox`);
-// gridLinesCheckbox.classList.add(`grid-lines-checkbox`);
-
-// const gridLinesCircle = document.createElement(`span`);
-
 const gridLines = document.createElement(`div`);
-gridLines.style.cssText = `
-	align-items: center;
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	margin-top: 1rem;
-	`;
+gridLines.classList.add(`grid-lines`);
 
 const gridLinesLabel = document.createElement(`label`);
 gridLinesLabel.setAttribute(`for`, `grid-lines-input`);
@@ -130,6 +102,7 @@ gridLinesLabel.textContent = `Grid Lines`;
 const gridLinesInput = document.createElement(`input`);
 gridLinesInput.setAttribute(`id`, `grid-lines-input`);
 gridLinesInput.setAttribute(`type`, `checkbox`);
+gridLinesInput.setAttribute(`checked`, `true`);
 
 const gridLinesSlider = document.createElement(`span`);
 gridLinesSlider.classList.add(`slider`);
@@ -180,10 +153,10 @@ colorPickers.appendChild(colorPickerHex);
 buttons.appendChild(rainbowColorBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
-subContainer.appendChild(gridLines);
+gridAndButtons.appendChild(gridLines);
 gridLines.appendChild(gridLinesLabel);
 gridLinesLabel.appendChild(gridLinesInput);
-gridLinesLabel.appendChild(gridLinesSlider)
+gridLinesLabel.appendChild(gridLinesSlider);
 gridLinesSlider.appendChild(gridLinesCircle);
 body.appendChild(footer);
 footer.appendChild(footerText);
@@ -228,6 +201,10 @@ window.addEventListener(`load`, () => {
 		parseInt(
 			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
 		) + `px`;
+	gridAndButtons.style.maxWidth =
+		window.getComputedStyle(gridContainer).getPropertyValue(`max-width`) +
+		130 +
+		`px`;
 	makeGrid();
 });
 window.addEventListener(`resize`, () => {
@@ -239,6 +216,10 @@ window.addEventListener(`resize`, () => {
 		parseInt(
 			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
 		) + `px`;
+	gridAndButtons.style.maxWidth =
+		window.getComputedStyle(gridContainer).getPropertyValue(`max-width`) +
+		130 +
+		`px`;
 	grid.forEach((gridPixel) => {
 		gridPixel.style.width =
 			parseInt(
@@ -273,10 +254,12 @@ colorPickerHex.addEventListener(`change`, (e) => {
 		hexCode = hexCode + hexCode.slice(1);
 	}
 	colorPickerHex.value = hexCode;
+	colorPickerHex.style.color = hexCode;
 	colorPickerSwatch.value = hexCode;
 });
 colorPickerSwatch.addEventListener(`input`, () => {
 	colorPickerHex.style.color = colorPickerSwatch.value;
+	colorPickerHex.value = colorPickerSwatch.value.toUpperCase();
 });
 
 // Color the grid in green on first click
@@ -358,9 +341,9 @@ rainbowColorBtn.addEventListener(`click`, () => {
 });
 
 // Toggle grid lines
-// gridLinesBtn.addEventListener(`click`, () => {
-// 	gridContainer.classList.toggle(`grid-border`);
-// });
+gridLinesInput.addEventListener(`change`, () => {
+	gridContainer.classList.toggle(`grid-border`);
+});
 
 // Erase the color of a specific grid pixel
 function startErasingGridPixelColor(e) {
