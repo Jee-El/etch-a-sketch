@@ -18,6 +18,7 @@ body {
 	justify-content: center;
 	min-height: 100vh;
 	width: 100%;
+	padding: 3rem 0;
 }
 
 label {
@@ -163,12 +164,6 @@ button:hover {
 @media (min-width: 1100px) {
 	.main-container {
 		min-height: calc(100vh - 44px);
-	}
-}
-
-@media (orientation: landscape) and (max-width: 900px) {
-	.main-container {
-		padding: 3rem 0;
 	}
 }
 
