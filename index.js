@@ -264,10 +264,18 @@ function stopColoringInRainbow() {
 	}
 	gridContainer.addEventListener(`click`, startColoringInGreen);
 }
-drawBtn.addEventListener(`click`, () => {
+drawBtn.addEventListener(`click`, (e) => {
 	if (gridContainer.classList.contains(`currently-erasing`)) {
 		stopErasing();
 	}
+	rainbowColorBtn.style.removeProperty(`box-shadow`);
+	eraserBtn.style.removeProperty(`box-shadow`);
+	clearBtn.style.removeProperty(`box-shadow`);
+	rainbowColorBtn.style.removeProperty(`color`);
+	eraserBtn.style.removeProperty(`color`);
+	clearBtn.style.removeProperty(`color`);
+	drawBtn.style.boxShadow = `none`;
+	drawBtn.style.color = `#fff`;
 	stopColoringInRainbow();
 });
 
@@ -311,6 +319,14 @@ rainbowColorBtn.addEventListener(`click`, () => {
 	if (gridContainer.classList.contains(`currently-erasing`)) {
 		stopErasing();
 	}
+	drawBtn.style.removeProperty(`box-shadow`);
+	eraserBtn.style.removeProperty(`box-shadow`);
+	clearBtn.style.removeProperty(`box-shadow`);
+	drawBtn.style.removeProperty(`color`);
+	eraserBtn.style.removeProperty(`color`);
+	clearBtn.style.removeProperty(`color`);
+	rainbowColorBtn.style.boxShadow = `none`;
+	rainbowColorBtn.style.color = `#fff`;
 	stopColoringInGreen();
 });
 
@@ -358,10 +374,29 @@ function stopErasing() {
 		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
 	});
 }
-eraserBtn.addEventListener(`click`, stopColoringAll);
+eraserBtn.addEventListener(`click`, () => {
+	drawBtn.style.removeProperty(`box-shadow`);
+	rainbowColorBtn.style.removeProperty(`box-shadow`);
+	clearBtn.style.removeProperty(`box-shadow`);
+	drawBtn.style.removeProperty(`color`);
+	rainbowColorBtn.style.removeProperty(`color`);
+	clearBtn.style.removeProperty(`color`);
+	eraserBtn.style.boxShadow = `none`;
+	eraserBtn.style.color = `#fff`;
+	stopColoringAll();
+});
 
 // Clear grid
 clearBtn.addEventListener(`click`, () => {
+	drawBtn.style.removeProperty(`box-shadow`);
+	rainbowColorBtn.style.removeProperty(`box-shadow`);
+	eraserBtn.style.removeProperty(`box-shadow`);
+	drawBtn.style.removeProperty(`color`);
+	rainbowColorBtn.style.removeProperty(`color`);
+	eraserBtn.style.removeProperty(`color`);
+	clearBtn.style.boxShadow = `none`;
+	clearBtn.style.color = `#fff`;
+
 	grid.forEach((gridPixel) => {
 		gridPixel.style.backgroundColor = `#474B4F`;
 		gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
