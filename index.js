@@ -81,6 +81,7 @@ colorPickerHex.style.cssText = `
 	padding: 0.2rem 0.6rem;
 	min-height: fit-content;
 	max-width: calc(93px - 0.6rem);
+	text-align: center;
 	`;
 colorPickerHex.setAttribute(`area-label`, `Pick a color in hex format`);
 
@@ -204,6 +205,12 @@ gridSizeSlider.addEventListener(`input`, () => {
 	gridSizeLabel.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
 	// Remove previously created grid elements
 	grid = [];
+	max =
+		parseInt(
+			window.getComputedStyle(gridContainer).getPropertyValue(`max-width`)
+		) /
+			gridSizeSlider.value +
+		`px`;
 	makeGrid(gridSizeSlider.value);
 });
 
