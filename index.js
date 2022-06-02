@@ -194,10 +194,10 @@ window.addEventListener(`resize`, () => {
 		) /
 			gridSizeSlider.value +
 		`px`;
-	grid.forEach((gridPixel) => {
-		gridPixel.style.width = max;
-		gridPixel.style.height = max;
-	});
+	for (let i = 0; i < grid.length; i++) {
+		grid[i].style.width = max;
+		grid[i].style.height = max;
+	}
 });
 
 // Change grid size based on the slider value
@@ -237,15 +237,11 @@ colorPickerSwatch.addEventListener(`input`, () => {
 function startColoringInGreen(e) {
 	gridContainer.classList.toggle(`start-green-coloring`);
 	if (!gridContainer.classList.contains(`start-green-coloring`)) {
-		grid.forEach((gridPixel) => {
-			gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
-		});
+		gridContainer.removeEventListener(`mouseover`, colorGridInGreen);
 		return;
 	}
 	e.target.style.backgroundColor = colorPickerSwatch.value;
-	grid.forEach((gridPixel) => {
-		gridPixel.addEventListener(`mouseenter`, colorGridInGreen);
-	});
+	gridContainer.addEventListener(`mouseover`, colorGridInGreen);
 }
 function colorGridInGreen(e) {
 	e.target.style.backgroundColor = colorPickerSwatch.value;
@@ -253,9 +249,7 @@ function colorGridInGreen(e) {
 // Stop coloring in any color other than green
 function stopColoringInRainbow() {
 	gridContainer.removeEventListener(`click`, startColoringInRainbow);
-	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
-	});
+	gridContainer.removeEventListener(`mouseover`, colorGridInRainbow);
 	if (gridContainer.classList.contains(`start-green-coloring`)) {
 		gridContainer.classList.toggle(`start-green-coloring`);
 	}
@@ -284,17 +278,13 @@ drawBtn.addEventListener(`click`, (e) => {
 function startColoringInRainbow(e) {
 	gridContainer.classList.toggle(`start-rainbow-coloring`);
 	if (!gridContainer.classList.contains(`start-rainbow-coloring`)) {
-		grid.forEach((gridPixel) => {
-			gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
-		});
+		gridContainer.removeEventListener(`mouseover`, colorGridInRainbow);
 		return;
 	}
 	e.target.style.backgroundColor = `rgb(${Math.floor(
 		Math.random() * 255
 	)}, 194, ${Math.floor(Math.random() * 255)})`;
-	grid.forEach((gridPixel) => {
-		gridPixel.addEventListener(`mouseenter`, colorGridInRainbow);
-	});
+	gridContainer.addEventListener(`mouseover`, colorGridInRainbow);
 }
 function colorGridInRainbow(e) {
 	e.target.style.backgroundColor = `rgb(${Math.floor(
@@ -304,9 +294,7 @@ function colorGridInRainbow(e) {
 // Stop coloring in any color other than rainbow
 function stopColoringInGreen() {
 	gridContainer.removeEventListener(`click`, startColoringInGreen);
-	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
-	});
+	gridContainer.removeEventListener(`mouseover`, colorGridInGreen);
 	if (gridContainer.classList.contains(`start-green-coloring`)) {
 		gridContainer.classList.toggle(`start-green-coloring`);
 	}
@@ -339,40 +327,26 @@ gridLinesInput.addEventListener(`change`, () => {
 function startErasingGridPixelColor(e) {
 	gridContainer.classList.toggle(`currently-erasing`);
 	if (!gridContainer.classList.contains(`currently-erasing`)) {
-		grid.forEach((gridPixel) => {
-			gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
-		});
+		gridContainer.removeEventListener(`mouseover`, eraseGridPixelColor);
 		return;
 	}
 	e.target.style.backgroundColor = `#474B4F`;
-	grid.forEach((gridPixel) => {
-		gridPixel.addEventListener(`mouseenter`, eraseGridPixelColor);
-	});
+	gridContainer.addEventListener(`mouseover`, eraseGridPixelColor);
 }
 function eraseGridPixelColor(e) {
 	e.target.style.backgroundColor = `#474B4F`;
 }
 function stopColoringAll() {
 	gridContainer.removeEventListener(`click`, startColoringInGreen);
-	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
-	});
+	gridContainer.removeEventListener(`mouseover`, colorGridInGreen);
 	gridContainer.removeEventListener(`click`, startColoringInRainbow);
-	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
-	});
-	grid.forEach((gridPixel) => {
-		gridPixel.addEventListener(`click`, startErasingGridPixelColor);
-	});
+	gridContainer.removeEventListener(`mouseover`, colorGridInRainbow);
+	gridContainer.addEventListener(`click`, startErasingGridPixelColor);
 }
 function stopErasing() {
 	gridContainer.classList.remove(`currently-erasing`);
-	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`click`, startErasingGridPixelColor);
-	});
-	grid.forEach((gridPixel) => {
-		gridPixel.removeEventListener(`mouseenter`, eraseGridPixelColor);
-	});
+	gridContainer.removeEventListener(`click`, startErasingGridPixelColor);
+	gridContainer.removeEventListener(`mouseover`, eraseGridPixelColor);
 }
 eraserBtn.addEventListener(`click`, () => {
 	drawBtn.style.removeProperty(`box-shadow`);
@@ -397,11 +371,12 @@ clearBtn.addEventListener(`click`, () => {
 	clearBtn.style.boxShadow = `none`;
 	clearBtn.style.color = `#fff`;
 
+	gridContainer.removeEventListener(`mouseover`, colorGridInGreen);
+	gridContainer.removeEventListener(`mouseover`, colorGridInRainbow);
 	grid.forEach((gridPixel) => {
 		gridPixel.style.backgroundColor = `#474B4F`;
-		gridPixel.removeEventListener(`mouseenter`, colorGridInGreen);
-		gridPixel.removeEventListener(`mouseenter`, colorGridInRainbow);
-	});
+	})
+
 	if (gridContainer.classList.contains(`start-green-coloring`)) {
 		gridContainer.classList.toggle(`start-green-coloring`);
 	}
