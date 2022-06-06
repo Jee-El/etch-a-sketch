@@ -92,9 +92,9 @@ const drawBtn = document.createElement(`button`);
 drawBtn.setAttribute(`type`, `button`);
 drawBtn.textContent = `Draw`;
 
-const rainbowColorBtn = document.createElement(`button`);
-rainbowColorBtn.setAttribute(`type`, `button`);
-rainbowColorBtn.textContent = `rainbow`;
+const rainbowBtn = document.createElement(`button`);
+rainbowBtn.setAttribute(`type`, `button`);
+rainbowBtn.textContent = `rainbow`;
 
 const eraserBtn = document.createElement(`button`);
 eraserBtn.setAttribute(`type`, `button`);
@@ -150,12 +150,21 @@ colorPickers.appendChild(colorPickerSwatch);
 colorPickers.appendChild(colorPickerHex);
 inputAndButtons.appendChild(buttons);
 buttons.appendChild(drawBtn);
-buttons.appendChild(rainbowColorBtn);
+buttons.appendChild(rainbowBtn);
 buttons.appendChild(eraserBtn);
 buttons.appendChild(clearBtn);
 body.appendChild(footer);
 footer.appendChild(footerText);
 footerText.appendChild(githubIcon);
+
+// Tell the user which tool is currently in use
+let x = document.querySelectorAll(`.buttons > button`);
+x.forEach((button) => {
+	button.addEventListener(`click`, (e) => {
+		x.forEach((button) => button.classList.remove(`pressed`));
+		e.target.classList.add(`pressed`);
+	});
+});
 
 let max;
 let grid = [];
@@ -262,14 +271,6 @@ drawBtn.addEventListener(`click`, (e) => {
 	if (gridContainer.classList.contains(`currently-erasing`)) {
 		stopErasing();
 	}
-	rainbowColorBtn.style.removeProperty(`box-shadow`);
-	eraserBtn.style.removeProperty(`box-shadow`);
-	clearBtn.style.removeProperty(`box-shadow`);
-	rainbowColorBtn.style.removeProperty(`color`);
-	eraserBtn.style.removeProperty(`color`);
-	clearBtn.style.removeProperty(`color`);
-	drawBtn.style.boxShadow = `none`;
-	drawBtn.style.color = `#fff`;
 	stopColoringInRainbow();
 });
 
@@ -303,18 +304,10 @@ function stopColoringInGreen() {
 	}
 	gridContainer.addEventListener(`click`, startColoringInRainbow);
 }
-rainbowColorBtn.addEventListener(`click`, () => {
+rainbowBtn.addEventListener(`click`, () => {
 	if (gridContainer.classList.contains(`currently-erasing`)) {
 		stopErasing();
 	}
-	drawBtn.style.removeProperty(`box-shadow`);
-	eraserBtn.style.removeProperty(`box-shadow`);
-	clearBtn.style.removeProperty(`box-shadow`);
-	drawBtn.style.removeProperty(`color`);
-	eraserBtn.style.removeProperty(`color`);
-	clearBtn.style.removeProperty(`color`);
-	rainbowColorBtn.style.boxShadow = `none`;
-	rainbowColorBtn.style.color = `#fff`;
 	stopColoringInGreen();
 });
 
@@ -349,33 +342,16 @@ function stopErasing() {
 	gridContainer.removeEventListener(`mouseover`, eraseGridPixelColor);
 }
 eraserBtn.addEventListener(`click`, () => {
-	drawBtn.style.removeProperty(`box-shadow`);
-	rainbowColorBtn.style.removeProperty(`box-shadow`);
-	clearBtn.style.removeProperty(`box-shadow`);
-	drawBtn.style.removeProperty(`color`);
-	rainbowColorBtn.style.removeProperty(`color`);
-	clearBtn.style.removeProperty(`color`);
-	eraserBtn.style.boxShadow = `none`;
-	eraserBtn.style.color = `#fff`;
 	stopColoringAll();
 });
 
 // Clear grid
 clearBtn.addEventListener(`click`, () => {
-	drawBtn.style.removeProperty(`box-shadow`);
-	rainbowColorBtn.style.removeProperty(`box-shadow`);
-	eraserBtn.style.removeProperty(`box-shadow`);
-	drawBtn.style.removeProperty(`color`);
-	rainbowColorBtn.style.removeProperty(`color`);
-	eraserBtn.style.removeProperty(`color`);
-	clearBtn.style.boxShadow = `none`;
-	clearBtn.style.color = `#fff`;
-
 	gridContainer.removeEventListener(`mouseover`, colorGridInGreen);
 	gridContainer.removeEventListener(`mouseover`, colorGridInRainbow);
 	grid.forEach((gridPixel) => {
 		gridPixel.style.backgroundColor = `#474B4F`;
-	})
+	});
 
 	if (gridContainer.classList.contains(`start-green-coloring`)) {
 		gridContainer.classList.toggle(`start-green-coloring`);

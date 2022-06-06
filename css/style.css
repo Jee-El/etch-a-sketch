@@ -139,8 +139,9 @@ button {
 	margin-top: 1rem;
 }
 
-.buttons > button:last-child:hover {
+.pressed {
 	color: #fff;
+	box-shadow: none;
 }
 
 @media (min-width: 856px) {
