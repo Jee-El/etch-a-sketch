@@ -1,3 +1,7 @@
+let isColoringInGreen = false;
+let isColoringInRainbow = false;
+let isErasing = false;
+
 const body = document.querySelector(`body`);
 const mainContainer = document.createElement(`div`);
 mainContainer.classList.add(`main-container`);
@@ -244,8 +248,8 @@ colorPickerSwatch.addEventListener(`input`, () => {
 // Color the grid in green on first click
 // Stop it on second click
 function startColoringInGreen(e) {
-	gridContainer.classList.toggle(`start-green-coloring`);
-	if (!gridContainer.classList.contains(`start-green-coloring`)) {
+	isColoringInGreen = !isColoringInGreen;
+	if (!isColoringInGreen) {
 		gridContainer.removeEventListener(`mouseover`, colorGridInGreen);
 		return;
 	}
@@ -259,26 +263,20 @@ function colorGridInGreen(e) {
 function stopColoringInRainbow() {
 	gridContainer.removeEventListener(`click`, startColoringInRainbow);
 	gridContainer.removeEventListener(`mouseover`, colorGridInRainbow);
-	if (gridContainer.classList.contains(`start-green-coloring`)) {
-		gridContainer.classList.toggle(`start-green-coloring`);
-	}
-	if (gridContainer.classList.toggle(`start-rainbow-coloring`)) {
-		gridContainer.classList.toggle(`start-rainbow-coloring`);
-	}
+	if (isColoringInGreen) isColoringInGreen = false;
+	if (isColoringInRainbow) isColoringInRainbow = false;
 	gridContainer.addEventListener(`click`, startColoringInGreen);
 }
 drawBtn.addEventListener(`click`, (e) => {
-	if (gridContainer.classList.contains(`currently-erasing`)) {
-		stopErasing();
-	}
+	if (isErasing) stopErasing();
 	stopColoringInRainbow();
 });
 
 // Color the grid in rainbow on first click
 // Stop it on second click
 function startColoringInRainbow(e) {
-	gridContainer.classList.toggle(`start-rainbow-coloring`);
-	if (!gridContainer.classList.contains(`start-rainbow-coloring`)) {
+	isColoringInRainbow = !isColoringInRainbow;
+	if (!isColoringInRainbow) {
 		gridContainer.removeEventListener(`mouseover`, colorGridInRainbow);
 		return;
 	}
@@ -296,18 +294,14 @@ function colorGridInRainbow(e) {
 function stopColoringInGreen() {
 	gridContainer.removeEventListener(`click`, startColoringInGreen);
 	gridContainer.removeEventListener(`mouseover`, colorGridInGreen);
-	if (gridContainer.classList.contains(`start-green-coloring`)) {
-		gridContainer.classList.toggle(`start-green-coloring`);
-	}
-	if (gridContainer.classList.contains(`start-rainbow-coloring`)) {
-		gridContainer.classList.toggle(`start-rainbow-coloring`);
-	}
+
+	if (isColoringInGreen) isColoringInGreen = false;
+	if (isColoringInRainbow) isColoringInRainbow = false;
+
 	gridContainer.addEventListener(`click`, startColoringInRainbow);
 }
 rainbowBtn.addEventListener(`click`, () => {
-	if (gridContainer.classList.contains(`currently-erasing`)) {
-		stopErasing();
-	}
+	if (isErasing) stopErasing();
 	stopColoringInGreen();
 });
 
@@ -318,8 +312,8 @@ gridLinesInput.addEventListener(`change`, () => {
 
 // Erase the color of a specific grid pixel
 function startErasingGridPixelColor(e) {
-	gridContainer.classList.toggle(`currently-erasing`);
-	if (!gridContainer.classList.contains(`currently-erasing`)) {
+	isErasing = !isErasing;
+	if (!isErasing) {
 		gridContainer.removeEventListener(`mouseover`, eraseGridPixelColor);
 		return;
 	}
@@ -337,26 +331,18 @@ function stopColoringAll() {
 	gridContainer.addEventListener(`click`, startErasingGridPixelColor);
 }
 function stopErasing() {
-	gridContainer.classList.remove(`currently-erasing`);
+	isErasing = false;
 	gridContainer.removeEventListener(`click`, startErasingGridPixelColor);
 	gridContainer.removeEventListener(`mouseover`, eraseGridPixelColor);
 }
-eraserBtn.addEventListener(`click`, () => {
-	stopColoringAll();
-});
+eraserBtn.addEventListener(`click`, stopColoringAll);
 
 // Clear grid
 clearBtn.addEventListener(`click`, () => {
 	gridContainer.removeEventListener(`mouseover`, colorGridInGreen);
 	gridContainer.removeEventListener(`mouseover`, colorGridInRainbow);
-	grid.forEach((gridPixel) => {
-		gridPixel.style.backgroundColor = `#474B4F`;
-	});
+	grid.forEach((gridPixel) => (gridPixel.style.backgroundColor = `#474B4F`));
 
-	if (gridContainer.classList.contains(`start-green-coloring`)) {
-		gridContainer.classList.toggle(`start-green-coloring`);
-	}
-	if (gridContainer.classList.toggle(`start-rainbow-coloring`)) {
-		gridContainer.classList.toggle(`start-rainbow-coloring`);
-	}
+	isColoringInGreen = false;
+	isColoringInRainbow = false;
 });
