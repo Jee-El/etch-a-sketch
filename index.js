@@ -72,12 +72,13 @@ colorPickerSwatchLabel.textContent = `Pick a color`;
 
 const colorPickerHex = document.createElement(`input`);
 colorPickerHex.setAttribute(`type`, `text`);
+colorPickerHex.setAttribute(`maxlength`, `7`);
 colorPickerHex.setAttribute(`value`, `#39B240`);
 colorPickerHex.setAttribute(`spellcheck`, `false`);
 colorPickerHex.style.cssText = `
 	background-color: rgba(0, 0, 0, 0.5);
 	border: none;
-	border-radius: 4px;
+	border-radius: 2px;
 	color: #39B240;
 	font-size: 0.75rem;
 	font-weight: 400;
