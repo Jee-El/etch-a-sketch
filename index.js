@@ -72,7 +72,7 @@ backgroundColorPickerAndLabel.setAttribute(
 
 const backgroundColorPicker = document.createElement(`input`);
 backgroundColorPicker.setAttribute(`type`, `color`);
-backgroundColorPicker.setAttribute(`value`, `#39B240`);
+backgroundColorPicker.setAttribute(`value`, `#474B4F`);
 backgroundColorPicker.setAttribute(`id`, `bg-swatch`);
 backgroundColorPicker.style.marginBottom = `0px`;
 
@@ -167,7 +167,7 @@ Array.from(buttons.children).forEach((button) => {
 
 let max;
 let grid = [];
-function makeGrid(side = 16, color = `#474B4F`) {
+function makeGrid(side = 16, color = backgroundColorPicker.value) {
   // Remove previous grid from the web page
   while (gridContainer.firstChild) {
     gridContainer.removeChild(gridContainer.firstChild);
