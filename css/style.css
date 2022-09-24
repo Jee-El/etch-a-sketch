@@ -129,10 +129,10 @@ label[for='swatch'] {
 
 button,
 input[type='color'] {
-  background-color: #39b240;
-  border: none;
+  background-color: transparent;
+  border: 2px solid rgba(57, 178, 64, 0.8);
   border-radius: 2px;
-  color: #000;
+  color: #39b240;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
@@ -143,26 +143,18 @@ input[type='color'] {
   width: 130px;
 }
 
-button {
-  box-shadow: 0px 5px 0px #297d2e;
-  -webkit-box-shadow: 0px 5px 0px #297d2e;
-}
-
 .buttons > button:not(:last-child) {
   margin-bottom: 1.5rem;
 }
 
 .buttons > button:last-child {
-  background-color: transparent;
-  border: 2px solid rgba(57, 178, 64, 0.8);
-  color: #39b240;
   padding: calc(0.4rem - 2px) 0.8rem;
   margin-top: 1rem;
 }
 
 .pressed {
-  color: #fff;
-  box-shadow: none;
+  background-color: #39b240;
+  color: #000;
 }
 
 @media (min-width: 856px) {
