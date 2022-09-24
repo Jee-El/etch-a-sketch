@@ -1,7 +1,7 @@
 let isColoringInGreen = false;
 let isColoringInRainbow = false;
 let isErasing = false;
-
+// #d4ffd8
 const body = document.querySelector(`body`);
 const mainContainer = document.createElement(`div`);
 mainContainer.classList.add(`main-container`);
@@ -25,7 +25,7 @@ gridSizeLabel.style.marginBottom = `0.25rem`;
 gridSizeLabel.textContent = `${gridSizeSlider.value} x ${gridSizeSlider.value}`;
 
 const gridContainer = document.createElement(`div`);
-gridContainer.classList.add(`grid-container`, `grid-border`);
+gridContainer.classList.add(`grid-container`);
 
 const gridLines = document.createElement(`div`);
 gridLines.classList.add(`grid-lines`);
@@ -38,7 +38,6 @@ gridLinesLabel.textContent = `Grid Lines`;
 const gridLinesInput = document.createElement(`input`);
 gridLinesInput.setAttribute(`id`, `grid-lines-input`);
 gridLinesInput.setAttribute(`type`, `checkbox`);
-gridLinesInput.setAttribute(`checked`, `true`);
 
 const gridLinesSlider = document.createElement(`span`);
 gridLinesSlider.classList.add(`slider`);
@@ -72,7 +71,7 @@ backgroundColorPickerAndLabel.setAttribute(
 
 const backgroundColorPicker = document.createElement(`input`);
 backgroundColorPicker.setAttribute(`type`, `color`);
-backgroundColorPicker.setAttribute(`value`, `#474B4F`);
+backgroundColorPicker.setAttribute(`value`, `#d4ffd8`);
 backgroundColorPicker.setAttribute(`id`, `bg-swatch`);
 backgroundColorPicker.style.marginBottom = `0px`;
 
@@ -156,14 +155,16 @@ footer.appendChild(footerText);
 footerText.appendChild(githubIcon);
 
 // Tell the user which tool is currently in use
-Array.from(buttons.children).forEach((button) => {
-  button.addEventListener(`click`, (e) => {
-    Array.from(buttons.children).forEach((button) =>
-      button.classList.remove(`pressed`)
-    );
-    e.target.classList.add(`pressed`);
+Array.from(buttons.children)
+  .slice(0, -1)
+  .forEach((button) => {
+    button.addEventListener(`click`, (e) => {
+      Array.from(buttons.children).forEach((button) =>
+        button.classList.remove(`pressed`)
+      );
+      e.target.classList.add(`pressed`);
+    });
   });
-});
 
 let max;
 let grid = [];
